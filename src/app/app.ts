@@ -5,6 +5,7 @@ import { AvisoCookies } from './cookies/aviso';
 import { Cookies } from './cookies/cookies';
 import { I18n } from './i18n/i18n';
 import { Idioma } from './i18n/idiomas';
+import { REDES } from './seo/sitio';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,9 @@ export class App {
   protected readonly cookies = inject(Cookies);
   protected readonly idiomas = this.i18n.idiomas;
   protected readonly anio = new Date().getFullYear();
+  /** Perfiles sociales; los que estén en blanco no se pintan (ver seo/sitio.ts). */
+  protected readonly redes = REDES;
+  protected readonly hayRedes = Object.values(REDES).some(Boolean);
 
   protected readonly menuAbierto = signal(false);
   protected readonly idiomasAbierto = signal(false);

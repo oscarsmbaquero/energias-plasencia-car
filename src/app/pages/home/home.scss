@@ -12,19 +12,44 @@
   background:
     radial-gradient(circle at 72% 45%, rgba($brand-green, .16), transparent 55%),
     linear-gradient(135deg, #ffffff 0%, $surface 100%);
+  // El multiply del producto no debe salirse de esta capa.
+  isolation: isolate;
+
+  /* Centrado con flex y no con `transform: translate()`: GSAP escribe su propia
+     transform al animar la escala y convierte ese % en píxeles fijos; al cambiar
+     el tamaño de la ventana (la barra del navegador del móvil al hacer scroll)
+     el desplazamiento se quedaba viejo y la imagen se salía por la izquierda. */
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 8%;
+
   .producto {
-    position: absolute; top: 50%; right: 8%; transform: translateY(-50%);
-    height: 78%; width: auto; max-width: 46%; object-fit: contain;
-    filter: drop-shadow(0 24px 40px rgba(0, 0, 0, .18));
+    height: 70%; width: auto; max-width: 46%; object-fit: contain;
+    // cargador.jpg lleva fondo blanco: multiply lo funde con el fondo claro y
+    // evita que se vea la caja recortada.
+    mix-blend-mode: multiply;
+    // La foto mide 436 px de alto; más de esto se ampliaría y se vería blanda.
+    max-height: 620px;
   }
+
   @media (max-width: 767.98px) {
-    .producto { right: 50%; transform: translate(50%, -50%); top: 32%; height: 42%; max-width: 72%; }
+    justify-content: center;
+    padding: 0 1rem 20%;
+    .producto { height: 46%; max-width: 78%; max-height: none; }
   }
 }
 
 /* Capa 2 — escena real del coche cargando. La descubre el scroll. */
 .capa-final {
   .escena { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+
+  // La foto es apaisada y el coche está a su derecha: recortada en vertical,
+  // centrada se queda con la casa del fondo y deja fuera el coche.
+  @media (max-width: 767.98px) {
+    .escena { object-position: 68% center; }
+  }
+
   .shade {
     position: absolute; inset: 0;
     background: linear-gradient(90deg, rgba(#000, .72), rgba(#000, .3) 55%, rgba(#000, .05));
@@ -59,7 +84,11 @@
   p { color: $muted; }
   .ico { font-size: 2rem; display: block; margin-bottom: .75rem; }
 }
+// Banda de cierre en blanco, como el pie: la sección anterior va en $surface,
+// así que el cambio de tono sigue marcando la separación.
 .cta-band {
-  background: $dark; color: #fff;
-  .lead { color: rgba(#fff, .75); }
+  background: $bg; color: $text;
+  .lead { color: $muted; }
 }
+
+

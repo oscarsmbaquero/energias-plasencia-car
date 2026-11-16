@@ -6,15 +6,19 @@
 
     <h2 class="h4 mb-3">{{ t().info.tiposTitulo }}</h2>
     <div class="row g-4 mb-5">
-      @for (tipo of t().info.tipos; track tipo.nombre) {
+      @for (tipo of t().info.tipos; track tipo.nombre; let i = $index) {
         <div class="col-12 col-md-4">
-          <article class="box h-100">
+          <article class="box tipo h-100" [attr.data-nivel]="i">
             <h3 class="h5">{{ tipo.nombre }}</h3>
             <dl class="mb-0">
               <dt>{{ t().info.etiquetas.potencia }}</dt><dd>{{ tipo.potencia }}</dd>
               <dt>{{ t().info.etiquetas.tiempo }}</dt><dd>{{ tipo.tiempo }}</dd>
               <dt>{{ t().info.etiquetas.uso }}</dt><dd>{{ tipo.uso }}</dd>
             </dl>
+            <!-- Medidor decorativo: se llena al llegar a la caja, más cuanto más
+                 rápida es la carga. No aporta información nueva, así que se
+                 oculta a los lectores de pantalla. -->
+            <div class="medidor" aria-hidden="true"><span class="relleno"></span></div>
           </article>
         </div>
       }
@@ -24,11 +28,28 @@
       <div class="col-12 col-lg-8">
         <h2 class="h4 mb-3">{{ t().info.faqTitulo }}</h2>
         @for (f of t().info.faq; track f.p; let i = $index) {
-          <div class="faq" [class.open]="abierta() === i">
-            <button type="button" (click)="toggle(i)" [attr.aria-expanded]="abierta() === i">
-              {{ f.p }} <span>{{ abierta() === i ? '−' : '+' }}</span>
+          @let abiertaEsta = abierta() === i;
+          <div class="faq" [class.open]="abiertaEsta">
+            <button
+              type="button"
+              [id]="'faq-btn-' + i"
+              (click)="toggle(i)"
+              [attr.aria-expanded]="abiertaEsta"
+              [attr.aria-controls]="'faq-' + i">
+              {{ f.p }}
+              <span class="signo" aria-hidden="true"></span>
             </button>
-            @if (abierta() === i) { <p>{{ f.r }}</p> }
+            <!-- La respuesta se queda siempre en el HTML (Google las lee) y se
+                 despliega con una transición; cerrada, `inert` la deja fuera del
+                 tabulador y de los lectores de pantalla. -->
+            <div
+              class="respuesta"
+              [id]="'faq-' + i"
+              role="region"
+              [attr.aria-labelledby]="'faq-btn-' + i"
+              [attr.inert]="abiertaEsta ? null : ''">
+              <div class="dentro"><p>{{ f.r }}</p></div>
+            </div>
           </div>
         }
       </div>

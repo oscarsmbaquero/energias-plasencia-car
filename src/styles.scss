@@ -28,6 +28,39 @@ h1, h2, h3, h4 { font-weight: 700; letter-spacing: -0.02em; }
 .section { padding: 5rem 0; }
 .section-alt { background: $surface; }
 
+/* Entrada al hacer scroll (src/app/ui/aparicion.ts). La clase .aos la pone solo
+   el navegador y solo sobre lo que todavía no se ve, así que el contenido nunca
+   queda escondido para un buscador ni si falla el JavaScript.
+
+   Es una animación y no una transición a propósito: una tarjeta puede traer ya
+   su propio `transition` (el del hover, por ejemplo), que al tener más
+   especificidad se lleva por delante el de aquí y la deja apareciendo de golpe.
+   Las animaciones no compiten con eso.
+
+   Con `backwards` el estado inicial solo se mantiene durante el retraso; al
+   acabar manda otra vez el CSS normal, así que el hover sigue funcionando. */
+.aos {
+  opacity: 0;
+  transform: translateY(28px);
+
+  &.visible {
+    opacity: 1;
+    transform: none;
+    animation: aos-aparecer .55s cubic-bezier(.22, .61, .36, 1) var(--retraso, 0s) backwards;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    opacity: 1;
+    transform: none;
+    &.visible { animation: none; }
+  }
+}
+
+@keyframes aos-aparecer {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: none; }
+}
+
 .eyebrow {
   text-transform: uppercase; letter-spacing: .15em; font-size: .8rem;
   color: $primary; font-weight: 700;

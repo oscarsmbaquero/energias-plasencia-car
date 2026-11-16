@@ -90,21 +90,52 @@ nav {
 }
 main { padding-top: 72px; min-height: 80vh; }
 
+// Pie sobre fondo blanco, como el resto del sitio. La línea de arriba es lo que
+// lo separa del contenido ahora que no cambia el color de fondo.
 .footer {
-  background: $dark; padding: 3rem 0 1.5rem; color: rgba(#fff, .7);
-  h2 { color: #fff; margin-bottom: .9rem; }
-  a { display: block; color: rgba(#fff, .7); text-decoration: none; margin-bottom: .5rem; &:hover { color: $accent; } }
-  .logo-footer { background: #fff; border-radius: .5rem; padding: .4rem .6rem; }
+  background: $bg; padding: 3rem 0 1.5rem; color: $muted;
+  border-top: 1px solid $border;
+  h2 { color: $text; margin-bottom: .9rem; }
+  a { display: block; color: $muted; text-decoration: none; margin-bottom: .5rem; &:hover { color: $primary; } }
   .seccion-car {
-    color: #fff; font-weight: 600;
+    color: $text; font-weight: 600;
     span {
       background: $brand-green; color: #fff; font-size: .75rem; letter-spacing: .06em;
       padding: .2rem .45rem; border-radius: .3rem; margin-left: .25rem;
     }
   }
   .creditos {
-    border-top: 1px solid rgba(#fff, .12); padding-top: 1.25rem; margin-top: 1rem;
-    font-size: .875rem; color: rgba(#fff, .55);
+    border-top: 1px solid $border; padding-top: 1.25rem; margin-top: 1rem;
+    font-size: .875rem; color: $muted;
+  }
+}
+
+// Redes sociales del pie: botones redondos con el icono en trazo.
+.redes {
+  display: flex; gap: .6rem; flex-wrap: wrap;
+  list-style: none; padding: 0; margin: 1.1rem 0 0;
+
+  a {
+    // El pie pone sus enlaces en bloque y con margen; estos son botones.
+    display: grid; place-items: center; margin: 0;
+    width: 2.4rem; height: 2.4rem;
+    border: 1px solid $border; border-radius: 50%;
+    color: $muted;
+    transition: color .2s, border-color .2s, background-color .2s;
+
+    &:hover { color: #fff; background: $primary; border-color: $primary; }
+    &:focus-visible { outline: 2px solid $primary; outline-offset: 2px; }
+  }
+
+  svg {
+    width: 1.15rem; height: 1.15rem; display: block;
+    fill: none; stroke: currentColor; stroke-width: 1.7;
+    stroke-linecap: round; stroke-linejoin: round;
+  }
+  .punto { fill: currentColor; stroke: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    a { transition: none; }
   }
 }
 
@@ -171,7 +202,7 @@ main { padding-top: 72px; min-height: 80vh; }
   font-size: .6rem;
   letter-spacing: .14em;
   text-transform: uppercase;
-  color: rgba(#fff, .45);
+  color: rgba($muted, .75);
 
   a {
     // El pie pone todos sus enlaces en bloque; este va en línea con el texto.
@@ -180,7 +211,7 @@ main { padding-top: 72px; min-height: 80vh; }
     color: inherit;
     text-decoration: none;
     transition: color .2s;
-    &:hover { color: $accent; }
+    &:hover { color: $primary; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -209,10 +240,10 @@ main { padding-top: 72px; min-height: 80vh; }
       border: 0;
       background: none;
       font: inherit;
-      color: rgba(#fff, .55);
+      color: $muted;
       text-decoration: none;
       cursor: pointer;
-      &:hover { color: $accent; }
+      &:hover { color: $primary; }
     }
   }
 }

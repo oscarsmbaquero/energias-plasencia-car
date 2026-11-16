@@ -78,8 +78,12 @@ En [home.ts](src/app/pages/home/home.ts) se usa GSAP + ScrollTrigger con `pin` y
 
 El hero son **dos capas**, no dos imágenes sueltas, porque las fotos tienen encuadres distintos:
 
-- `.capa-inicial` — `cargador.webp` es una foto de producto recortada sobre blanco, así que se muestra con `object-fit: contain` sobre un fondo claro de marca, y su texto va en oscuro.
-- `.capa-final` — `coche-cargando.jpg` es una escena real: ocupa toda la pantalla con `cover` y un degradado oscuro encima, con el texto en blanco.
+- `.capa-inicial` — `cargador.jpg` es una foto de producto con fondo blanco, así que va con `object-fit: contain` sobre el fondo claro de marca y `mix-blend-mode: multiply`, que funde ese blanco y evita que se vea la caja recortada. Su altura real es de 436 px y no se amplía (`max-height`), porque ampliarla la emborrona.
+- `.capa-final` — `coche-cargando2.jpg` (1280×714) es una escena real, con un degradado oscuro encima y el texto en blanco.
+
+**En escritorio** la cortinilla va de izquierda a derecha y el cargador se desvanece antes de que llegue a su zona: si no, se ven a la vez el cargador del producto y el wallbox de la foto, y parece una imagen duplicada.
+
+**En pantalla estrecha** cambian dos cosas. La cortinilla baja de arriba abajo con borde duro —nada de fundidos: al superponer las dos fotos se ven las dos a la vez— y la escena no va a sangre, sino en una banda superior con el texto sobre un bloque oscuro. Una foto apaisada recortada a pantalla completa en vertical pierde tres cuartas partes de su ancho y el coche se queda fuera; con la banda se ve casi toda, y `object-position: 62%` centra el encuadre en el coche y el conector.
 
 - `afterNextRender` garantiza que solo se ejecute en navegador (importante con SSR).
 - `gsap.context()` + `ngOnDestroy` limpian los ScrollTriggers al cambiar de ruta.
@@ -87,15 +91,28 @@ El hero son **dos capas**, no dos imágenes sueltas, porque las fotos tienen enc
 
 Para cambiar la duración del efecto, ajusta `end: '+=150%'`.
 
+## Efectos de scroll del resto de páginas
+
+Fuera de la portada no se usa GSAP, sino [ui/aparicion.ts](src/app/ui/aparicion.ts): un ayudante pequeño sobre `IntersectionObserver` que pone una clase a cada elemento cuando asoma por abajo, escalonando los que entran a la vez. Lo usan **productos** (las tarjetas entran en cascada, y al pulsar un filtro entran todas otra vez) e **info** (las cajas de tipos de carga entran y su medidor se llena como una batería, cada uno hasta su nivel).
+
+Tres cosas que no son evidentes y conviene no deshacer:
+
+- **No se usa `viewChild`.** Con hidratación devuelve una copia del marcado del servidor que ya no está en la página: se animaría una rejilla fantasma. Hay que partir del elemento del componente (`inject(ElementRef)`).
+- **Un `MutationObserver` rehace la preparación.** La hidratación sustituye los nodos del servidor por los suyos un momento después de arrancar —incluso después de `whenStable()`—, así que las clases puestas antes se van con los nodos viejos.
+- **La entrada es una animación, no una transición.** Un `transition` propio del elemento (el del hover de `.producto`, por ejemplo) tiene más especificidad que el global y deja la entrada sin fundido, apareciendo de golpe. La clase `.aos` está en [styles.scss](src/styles.scss) con `@keyframes`.
+
+Al cargar solo se esconde lo que todavía no se ve: el HTML llega ya pintado desde el servidor y esconder lo que está a la vista daría un parpadeo. Las clases las pone siempre el navegador, así que en el HTML prerenderizado el contenido sale entero y visible.
+
 ## Qué tienes que sustituir
 
 1. **Dominio** — `SITIO_URL` en [src/app/seo/sitio.ts](src/app/seo/sitio.ts), `public/robots.txt`, `public/sitemap.xml` y `allowedHosts` en [angular.json](angular.json). Ahora mismo apuntan a `www.energiasplasencia.es`.
-2. **Logo** — [public/images/logo.svg](public/images/logo.svg) es una reconstrucción aproximada. Copia el archivo original sobre él (si es PNG, guárdalo como `logo.png` y cambia la ruta en [app.html](src/app/app.html)).
-3. **Foto del coche** — `public/images/coche-cargando.jpg` está a 460×288 px, poco para un hero a pantalla completa: se verá borrosa en pantallas grandes. Busca una versión de al menos 1920 px de ancho y guárdala en WebP. Sirve además de imagen para redes (`IMAGEN_SOCIAL`), donde lo ideal son 1200×630 px.
+2. **Logo** — [public/images/logo.png](public/images/logo.png) es el logotipo real (318×91 px). De él salen también los iconos `public/favicon-32.png` y `favicon-180.png`, recortando la marca de los rombos. Si algún día aparece en vectorial (SVG), sustitúyelo y regenera los iconos: ganarían nitidez en pantallas retina.
+3. **Fotos del hero** — `coche-cargando2.jpg` (1280×714) está bien para portátil, justa para monitor grande: si consigues una de 1920 px en WebP, mejor. `cargador.jpg` mide 390×436 y por eso se muestra a tamaño real; si tienes una versión más grande, idealmente PNG con fondo transparente, ganaría nitidez y podría ocupar más. Los archivos antiguos `cargador.webp` y `coche-cargando.jpg` ya no se usan.
 4. **Productos y precios** — ids, categorías y precios en [src/app/data/productos.ts](src/app/data/productos.ts); nombres y descripciones, en los tres diccionarios de [src/app/i18n/](src/app/i18n/).
 5. **Datos de la empresa** — teléfono, calle y código postal en `EMPRESA` de [sitio.ts](src/app/seo/sitio.ts): aparecen en la ficha de Google. El email y la ciudad del pie están en [app.html](src/app/app.html).
 6. **Textos legales** — CIF y domicilio en la política de privacidad de los tres diccionarios de [src/app/i18n/](src/app/i18n/), donde pone `[CIF por completar]` y `[dirección por completar]`. Y que los revise un abogado.
 7. **Envío del formulario** — [presupuesto.ts](src/app/pages/presupuesto/presupuesto.ts) hace `console.log`. Conéctalo a tu backend, a EmailJS o a Formspree donde está el `TODO`.
+8. **Redes sociales** — `REDES` en [sitio.ts](src/app/seo/sitio.ts) ya tiene Facebook, Instagram y X. Cada URL rellena pinta su icono en el pie, bajo Contacto, y se añade al `sameAs` de los datos estructurados, que es como Google relaciona esos perfiles con el negocio; lo que se deje en blanco no sale. Ojo: la cuenta de Facebook es la de **energiasolarplasencia**, la de la empresa entera, no una específica de movilidad.
 
 ## Colores de marca
 

@@ -5,7 +5,7 @@
 
     <div class="filtros mb-4">
       @for (f of filtros; track f) {
-        <button type="button" class="chip" [class.on]="filtro() === f" (click)="filtro.set(f)">
+        <button type="button" class="chip" [class.on]="filtro() === f" (click)="elegir(f)">
           {{ t().productos.categorias[f] }}
         </button>
       }

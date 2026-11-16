@@ -1,12 +1,37 @@
 @use '../../../styles/variables' as *;
 
+.filtros {
+  display: flex;
+  gap: .5rem;
+}
+
 .chip {
   background: #fff; color: $muted; border: 1px solid $border;
-  border-radius: 999px; padding: .4rem 1.1rem; margin: 0 .5rem .5rem 0; cursor: pointer;
+  border-radius: 999px; padding: .4rem 1.1rem; cursor: pointer;
+  white-space: nowrap;
   transition: all .2s;
   &:hover { color: $primary; border-color: $primary; }
   &.on { background: $primary; color: #fff; border-color: $primary; font-weight: 600; }
 }
+
+/* En móvil los tres van en una sola línea: se aprieta el relleno y se baja un
+   punto el texto. Si aun así no cupieran (pantallas de 320 px), la fila se
+   desplaza con el dedo en vez de partirse en dos. */
+@media (max-width: 767.98px) {
+  .filtros {
+    gap: .4rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    &::-webkit-scrollbar { display: none; }
+  }
+
+  .chip {
+    padding: .4rem .8rem;
+    font-size: .875rem;
+    flex: 0 0 auto;
+  }
+}
+/* La entrada en cascada de las tarjetas está en styles.scss (clase .aos). */
 .producto {
   display: flex; flex-direction: column;
   background: #fff; border: 1px solid $border; border-radius: 1rem; padding: 1.75rem;

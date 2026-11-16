@@ -6,7 +6,10 @@ import { filter } from 'rxjs';
 
 import { DICCIONARIOS } from '../i18n/i18n';
 import { IDIOMAS, IDIOMA_DEFECTO, Idioma, Pagina, analizarUrl, rutaCon } from '../i18n/idiomas';
-import { EMPRESA, IMAGEN_SOCIAL, SITIO_URL } from './sitio';
+import { EMPRESA, IMAGEN_SOCIAL, REDES, SITIO_URL } from './sitio';
+
+/** Perfiles sociales que estén rellenos, para el `sameAs` de la ficha. */
+const PERFILES = Object.values(REDES).filter(Boolean);
 
 /**
  * Metadatos para buscadores y redes sociales en cada navegación: título,
@@ -100,10 +103,11 @@ export class Seo {
       legalName: EMPRESA.nombre,
       url: canonica,
       image: this.absoluta('/' + IMAGEN_SOCIAL),
-      logo: this.absoluta('/images/logo.svg'),
+      logo: this.absoluta('/images/logo.png'),
       description: d.seo.home.description,
       email: EMPRESA.email,
       ...(EMPRESA.telefono ? { telephone: EMPRESA.telefono } : {}),
+      ...(PERFILES.length ? { sameAs: PERFILES } : {}),
       address: {
         '@type': 'PostalAddress',
         ...(EMPRESA.calle ? { streetAddress: EMPRESA.calle } : {}),
