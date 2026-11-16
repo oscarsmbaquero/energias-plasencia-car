@@ -1,6 +1,8 @@
 import { Component, effect, inject, input, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { PRODUCTOS } from '../../data/productos';
+
+import { PRODUCTOS, ProductoId } from '../../data/productos';
+import { I18n } from '../../i18n/i18n';
 
 @Component({
   selector: 'app-presupuesto',
@@ -10,6 +12,9 @@ import { PRODUCTOS } from '../../data/productos';
 })
 export class Presupuesto {
   private readonly fb = inject(FormBuilder);
+
+  protected readonly i18n = inject(I18n);
+  protected readonly t = this.i18n.d;
 
   /** Llega de ?producto=<id> gracias a withComponentInputBinding */
   readonly producto = input<string>();
@@ -31,6 +36,11 @@ export class Presupuesto {
       const id = this.producto();
       if (id && PRODUCTOS.some(p => p.id === id)) this.form.patchValue({ producto: id });
     });
+  }
+
+  /** Nombre del producto en el idioma activo, para el desplegable. */
+  protected nombre(id: ProductoId) {
+    return this.t().productos.items[id].nombre;
   }
 
   protected invalido(campo: 'nombre' | 'email' | 'telefono' | 'privacidad') {

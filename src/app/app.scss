@@ -20,10 +20,10 @@ nav {
   display: flex; gap: 1.5rem; align-items: center;
   a {
     color: $text; text-decoration: none; font-weight: 500; transition: color .2s;
-    &:hover, &.active { color: $brand-orange; }
+    &:hover, &.active { color: $primary; }
     &.cta {
-      background: $brand-orange; color: #fff; padding: .5rem 1.2rem; border-radius: 999px; font-weight: 600;
-      &:hover { background: darken($brand-orange, 6%); color: #fff; }
+      background: $primary; color: #fff; padding: .5rem 1.2rem; border-radius: 999px; font-weight: 600;
+      &:hover { background: darken($primary, 6%); color: #fff; }
     }
   }
   @media (max-width: 767.98px) {
@@ -76,10 +76,10 @@ nav {
     stroke-dashoffset: -32.42;
   }
 
-  input:checked + svg .line { stroke: $brand-orange; }
+  input:checked + svg .line { stroke: $primary; }
 
   input:focus-visible + svg {
-    outline: 2px solid $brand-orange;
+    outline: 2px solid $primary;
     outline-offset: 4px;
     border-radius: .35rem;
   }
@@ -93,7 +93,7 @@ main { padding-top: 72px; min-height: 80vh; }
 .footer {
   background: $dark; padding: 3rem 0 1.5rem; color: rgba(#fff, .7);
   h2 { color: #fff; margin-bottom: .9rem; }
-  a { display: block; color: rgba(#fff, .7); text-decoration: none; margin-bottom: .5rem; &:hover { color: $brand-orange; } }
+  a { display: block; color: rgba(#fff, .7); text-decoration: none; margin-bottom: .5rem; &:hover { color: $accent; } }
   .logo-footer { background: #fff; border-radius: .5rem; padding: .4rem .6rem; }
   .seccion-car {
     color: #fff; font-weight: 600;
@@ -105,5 +105,60 @@ main { padding-top: 72px; min-height: 80vh; }
   .creditos {
     border-top: 1px solid rgba(#fff, .12); padding-top: 1.25rem; margin-top: 1rem;
     font-size: .875rem; color: rgba(#fff, .55);
+  }
+}
+
+// Selector de idioma del header
+.idiomas {
+  position: relative;
+
+  .idiomas-btn {
+    display: inline-flex; align-items: center; gap: .4rem;
+    background: none; border: 1px solid $border; border-radius: 999px;
+    padding: .35rem .7rem; font: inherit; font-weight: 600; color: $text;
+    cursor: pointer; transition: border-color .2s, color .2s;
+    &:hover { color: $primary; border-color: $primary; }
+    &:focus-visible { outline: 2px solid $primary; outline-offset: 2px; }
+  }
+
+  .globo {
+    width: 1.1rem; height: 1.1rem; display: block;
+    fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round;
+  }
+
+  .flecha {
+    width: 0; height: 0; border: .3rem solid transparent;
+    border-top-color: currentColor; margin-top: .25rem;
+    transition: transform .2s;
+  }
+  .idiomas-btn[aria-expanded='true'] .flecha { transform: rotate(180deg); }
+
+  ul {
+    display: none; position: absolute; right: 0; top: calc(100% + .5rem); z-index: 110;
+    margin: 0; padding: .35rem; list-style: none; min-width: 11rem;
+    background: #fff; border: 1px solid $border; border-radius: .6rem;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, .1);
+    &.open { display: block; }
+  }
+
+  li a {
+    display: flex; align-items: center; gap: .6rem; margin: 0;
+    padding: .5rem .6rem; border-radius: .4rem; font-weight: 500; white-space: nowrap;
+    &:hover { background: $surface; }
+    &.actual { color: $primary; font-weight: 700; }
+
+    .sigla {
+      font-size: .7rem; font-weight: 700; letter-spacing: .06em;
+      background: $surface; color: $muted; padding: .15rem .35rem; border-radius: .25rem;
+    }
+    &.actual .sigla { background: rgba($primary, .12); color: $primary; }
+  }
+
+  @media (max-width: 767.98px) {
+    ul { right: auto; left: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .idiomas-btn, .flecha { transition: none; }
   }
 }

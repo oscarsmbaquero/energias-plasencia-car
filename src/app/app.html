@@ -1,7 +1,7 @@
 <header class="topbar">
   <div class="container d-flex align-items-center justify-content-between">
-    <a routerLink="/" class="brand" (click)="cerrar()">
-      <img src="images/logo.svg" alt="Energías Plasencia SL" height="44">
+    <a [routerLink]="i18n.l('/')" class="brand" (click)="cerrar()">
+      <img src="images/logo.svg" [alt]="t().nav.logoAlt" height="44">
       <span class="brand-sub">car</span>
     </a>
     <label class="hamburger d-md-none">
@@ -9,7 +9,7 @@
         type="checkbox"
         [checked]="menuAbierto()"
         (change)="toggle()"
-        [attr.aria-label]="menuAbierto() ? 'Cerrar menú' : 'Abrir menú'"
+        [attr.aria-label]="menuAbierto() ? t().nav.cerrarMenu : t().nav.abrirMenu"
         [attr.aria-expanded]="menuAbierto()"
         aria-controls="menu-principal">
       <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
@@ -20,10 +20,48 @@
       </svg>
     </label>
     <nav id="menu-principal" [class.open]="menuAbierto()">
-      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="cerrar()">Inicio</a>
-      <a routerLink="/productos" routerLinkActive="active" (click)="cerrar()">Productos</a>
-      <a routerLink="/info" routerLinkActive="active" (click)="cerrar()">Info</a>
-      <a routerLink="/presupuesto" class="cta" (click)="cerrar()">Pedir presupuesto</a>
+      <a [routerLink]="i18n.l('/')" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="cerrar()">{{ t().nav.inicio }}</a>
+      <a [routerLink]="i18n.l('/productos')" routerLinkActive="active" (click)="cerrar()">{{ t().nav.productos }}</a>
+      <a [routerLink]="i18n.l('/info')" routerLinkActive="active" (click)="cerrar()">{{ t().nav.info }}</a>
+
+      <!-- Selector de idioma: enlaces reales a la misma página en el otro idioma,
+           para que el rastreador de Google pueda seguirlos. -->
+      <div class="idiomas">
+        <button
+          type="button"
+          class="idiomas-btn"
+          (click)="toggleIdiomas()"
+          [attr.aria-label]="t().nav.idioma"
+          [attr.aria-expanded]="idiomasAbierto()"
+          aria-haspopup="true"
+          aria-controls="lista-idiomas">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" class="globo">
+            <circle cx="12" cy="12" r="9"></circle>
+            <path d="M3 12h18M12 3c2.5 2.6 2.5 15.4 0 18M12 3c-2.5 2.6-2.5 15.4 0 18"></path>
+          </svg>
+          <span>{{ i18n.siglaDe(i18n.idioma()) }}</span>
+          <span class="flecha" aria-hidden="true"></span>
+        </button>
+        <ul id="lista-idiomas" [class.open]="idiomasAbierto()">
+          @for (idioma of idiomas; track idioma) {
+            <li>
+              <a
+                [routerLink]="enlaceIdioma(idioma)"
+                [queryParams]="i18n.query()"
+                [attr.lang]="idioma"
+                [attr.hreflang]="idioma"
+                [class.actual]="idioma === i18n.idioma()"
+                [attr.aria-current]="idioma === i18n.idioma() ? 'true' : null"
+                (click)="cerrar()">
+                <span class="sigla">{{ i18n.siglaDe(idioma) }}</span>
+                {{ i18n.nombreDe(idioma) }}
+              </a>
+            </li>
+          }
+        </ul>
+      </div>
+
+      <a [routerLink]="i18n.l('/presupuesto')" class="cta" (click)="cerrar()">{{ t().nav.presupuesto }}</a>
     </nav>
   </div>
 </header>
@@ -33,21 +71,21 @@
 <footer class="footer">
   <div class="container row gy-4">
     <div class="col-md-5">
-      <img src="images/logo.svg" alt="Energías Plasencia SL" height="54" class="mb-3 logo-footer">
+      <img src="images/logo.svg" [alt]="t().nav.logoAlt" height="54" class="mb-3 logo-footer">
       <p class="mb-1"><strong class="seccion-car">Energías Plasencia <span>car</span></strong></p>
-      <p class="mb-0">Movilidad eléctrica e instalación de puntos de carga en Plasencia (Cáceres).</p>
+      <p class="mb-0">{{ t().footer.descripcion }}</p>
     </div>
     <div class="col-md-3">
-      <h2 class="h6">Secciones</h2>
-      <a routerLink="/productos">Productos</a>
-      <a routerLink="/info">Info</a>
-      <a routerLink="/presupuesto">Pedir presupuesto</a>
+      <h2 class="h6">{{ t().footer.secciones }}</h2>
+      <a [routerLink]="i18n.l('/productos')">{{ t().nav.productos }}</a>
+      <a [routerLink]="i18n.l('/info')">{{ t().nav.info }}</a>
+      <a [routerLink]="i18n.l('/presupuesto')">{{ t().nav.presupuesto }}</a>
     </div>
     <div class="col-md-4">
-      <h2 class="h6">Contacto</h2>
-      <p class="mb-1">Plasencia, Cáceres</p>
+      <h2 class="h6">{{ t().footer.contacto }}</h2>
+      <p class="mb-1">{{ t().footer.ciudad }}</p>
       <p class="mb-0">info&#64;energiasplasencia.es</p>
     </div>
-    <div class="col-12 creditos">© {{ anio }} Energías Plasencia SL · Todos los derechos reservados</div>
+    <div class="col-12 creditos">© {{ anio }} Energías Plasencia SL · {{ t().footer.derechos }}</div>
   </div>
 </footer>

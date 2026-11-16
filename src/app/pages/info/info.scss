@@ -11,8 +11,8 @@
   button {
     width: 100%; display: flex; justify-content: space-between; gap: 1rem; text-align: left;
     background: none; border: 0; color: $text; font-weight: 600; padding: 1.1rem 0; cursor: pointer;
-    &:hover { color: $brand-orange; }
-    span { color: $brand-orange; font-size: 1.4rem; line-height: 1; }
+    &:hover { color: $primary; }
+    span { color: $primary; font-size: 1.4rem; line-height: 1; }
   }
   p { color: $muted; padding-bottom: 1.1rem; margin: 0; }
 }

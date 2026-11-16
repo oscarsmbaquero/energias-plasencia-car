@@ -4,8 +4,8 @@
   background: #fff; color: $muted; border: 1px solid $border;
   border-radius: 999px; padding: .4rem 1.1rem; margin: 0 .5rem .5rem 0; cursor: pointer;
   transition: all .2s;
-  &:hover { color: $brand-orange; border-color: $brand-orange; }
-  &.on { background: $brand-orange; color: #fff; border-color: $brand-orange; font-weight: 600; }
+  &:hover { color: $primary; border-color: $primary; }
+  &.on { background: $primary; color: #fff; border-color: $primary; font-weight: 600; }
 }
 .producto {
   display: flex; flex-direction: column;
@@ -21,5 +21,5 @@
     display: flex; flex-direction: column; align-items: flex-start;
     gap: .75rem; margin-top: 1.25rem;
   }
-  .precio { font-weight: 700; color: $brand-orange; font-size: 1.05rem; }
+  .precio { font-weight: 700; color: $primary; font-size: 1.05rem; }
 }

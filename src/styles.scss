@@ -30,15 +30,15 @@ h1, h2, h3, h4 { font-weight: 700; letter-spacing: -0.02em; }
 
 .eyebrow {
   text-transform: uppercase; letter-spacing: .15em; font-size: .8rem;
-  color: $brand-orange; font-weight: 700;
+  color: $primary; font-weight: 700;
 }
 .text-verde { color: $brand-green; }
 
 .btn-eco {
-  background: $brand-orange; color: #fff; font-weight: 600;
+  background: $primary; color: #fff; font-weight: 600;
   border-radius: 999px; padding: .75rem 1.75rem; border: 0;
   transition: transform .2s, box-shadow .2s, background-color .2s;
-  &:hover { background: darken($brand-orange, 6%); color: #fff; transform: translateY(-2px); box-shadow: 0 8px 22px rgba($brand-orange, .35); }
+  &:hover { background: darken($primary, 6%); color: #fff; transform: translateY(-2px); box-shadow: 0 8px 22px rgba($primary, .35); }
 }
 .btn-verde {
   background: $brand-green; color: #fff; font-weight: 600;
@@ -50,6 +50,6 @@ h1, h2, h3, h4 { font-weight: 700; letter-spacing: -0.02em; }
   &:hover { background: #fff; color: $brand-black; }
 }
 .btn-outline-eco {
-  border: 2px solid $brand-orange; color: $brand-orange; border-radius: 999px; padding: .7rem 1.7rem; font-weight: 600;
-  &:hover { background: $brand-orange; color: #fff; }
+  border: 2px solid $primary; color: $primary; border-radius: 999px; padding: .7rem 1.7rem; font-weight: 600;
+  &:hover { background: $primary; color: #fff; }
 }

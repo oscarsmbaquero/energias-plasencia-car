@@ -1,19 +1,19 @@
 <section class="section">
   <div class="container">
-    <p class="eyebrow">Guía</p>
-    <h1 class="mb-3">Todo sobre vehículos eléctricos</h1>
-    <p class="lead muted mb-5">Resolvemos las dudas más habituales antes de dar el salto a la movilidad eléctrica.</p>
+    <p class="eyebrow">{{ t().info.eyebrow }}</p>
+    <h1 class="mb-3">{{ t().info.titulo }}</h1>
+    <p class="lead muted mb-5">{{ t().info.lead }}</p>
 
-    <h2 class="h4 mb-3">Tipos de carga</h2>
+    <h2 class="h4 mb-3">{{ t().info.tiposTitulo }}</h2>
     <div class="row g-4 mb-5">
-      @for (t of tiposCarga; track t.nombre) {
+      @for (tipo of t().info.tipos; track tipo.nombre) {
         <div class="col-12 col-md-4">
           <article class="box h-100">
-            <h3 class="h5">{{ t.nombre }}</h3>
+            <h3 class="h5">{{ tipo.nombre }}</h3>
             <dl class="mb-0">
-              <dt>Potencia</dt><dd>{{ t.potencia }}</dd>
-              <dt>Tiempo</dt><dd>{{ t.tiempo }}</dd>
-              <dt>Uso</dt><dd>{{ t.uso }}</dd>
+              <dt>{{ t().info.etiquetas.potencia }}</dt><dd>{{ tipo.potencia }}</dd>
+              <dt>{{ t().info.etiquetas.tiempo }}</dt><dd>{{ tipo.tiempo }}</dd>
+              <dt>{{ t().info.etiquetas.uso }}</dt><dd>{{ tipo.uso }}</dd>
             </dl>
           </article>
         </div>
@@ -22,8 +22,8 @@
 
     <div class="row g-5">
       <div class="col-12 col-lg-8">
-        <h2 class="h4 mb-3">Preguntas frecuentes</h2>
-        @for (f of faq; track f.p; let i = $index) {
+        <h2 class="h4 mb-3">{{ t().info.faqTitulo }}</h2>
+        @for (f of t().info.faq; track f.p; let i = $index) {
           <div class="faq" [class.open]="abierta() === i">
             <button type="button" (click)="toggle(i)" [attr.aria-expanded]="abierta() === i">
               {{ f.p }} <span>{{ abierta() === i ? '−' : '+' }}</span>
@@ -34,9 +34,9 @@
       </div>
       <aside class="col-12 col-lg-4">
         <div class="box">
-          <h2 class="h5">¿Te asesoramos?</h2>
-          <p class="muted">Cuéntanos tu caso y te recomendamos la mejor solución de carga.</p>
-          <a routerLink="/presupuesto" class="btn btn-eco">Pedir presupuesto</a>
+          <h2 class="h5">{{ t().info.asideTitulo }}</h2>
+          <p class="muted">{{ t().info.asideTexto }}</p>
+          <a [routerLink]="i18n.l('/presupuesto')" class="btn btn-eco">{{ t().nav.presupuesto }}</a>
         </div>
       </aside>
     </div>

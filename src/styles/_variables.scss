@@ -1,10 +1,15 @@
 // Identidad Energías Plasencia SL
-$brand-orange: #ee7203;
 $brand-green: #76b82a;
+// Verde legible: el del logo sobre blanco se queda en 2,6:1 de contraste, muy
+// por debajo del mínimo (4,5:1), así que para texto y botones se usa este, que
+// llega a 5,1:1 manteniendo el mismo tono.
+$brand-green-dark: #4a7a19;
+// El naranja del logo ya solo aparece en public/images/logo.svg.
+$brand-orange: #ee7203;
 $brand-black: #111111;
 
-// Alias de uso
-$primary: $brand-orange;
+// Alias de uso: $primary sobre fondo claro, $accent sobre fondo oscuro.
+$primary: $brand-green-dark;
 $accent: $brand-green;
 
 // Superficies (tema claro)

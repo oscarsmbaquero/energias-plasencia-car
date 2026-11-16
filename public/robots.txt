@@ -1,0 +1,5 @@
+# Energías Plasencia car
+User-agent: *
+Allow: /
+
+Sitemap: https://www.energiasplasencia.es/sitemap.xml

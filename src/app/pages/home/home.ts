@@ -1,7 +1,9 @@
-import { Component, ElementRef, OnDestroy, afterNextRender, viewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, afterNextRender, inject, viewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+import { I18n } from '../../i18n/i18n';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,12 +17,8 @@ export class Home implements OnDestroy {
   private readonly hero = viewChild.required<ElementRef<HTMLElement>>('hero');
   private ctx?: gsap.Context;
 
-  protected readonly ventajas = [
-    { icono: '💶', titulo: 'Ahorro real', texto: 'Hasta 5 veces menos coste por kilómetro que un coche de combustión.' },
-    { icono: '🌿', titulo: 'Cero emisiones', texto: 'Movilidad limpia y etiqueta 0 de la DGT.' },
-    { icono: '🔧', titulo: 'Menos mantenimiento', texto: 'Sin aceite, embrague ni correa de distribución.' },
-    { icono: '🏠', titulo: 'Carga en casa', texto: 'Instalamos tu punto de carga y legalizamos la instalación.' }
-  ];
+  protected readonly i18n = inject(I18n);
+  protected readonly t = this.i18n.d;
 
   constructor() {
     afterNextRender(() => {

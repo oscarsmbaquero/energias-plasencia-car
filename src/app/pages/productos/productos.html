@@ -1,27 +1,35 @@
 <section class="section">
   <div class="container">
-    <p class="eyebrow">Catálogo</p>
-    <h1 class="mb-4">Productos</h1>
+    <p class="eyebrow">{{ t().productos.eyebrow }}</p>
+    <h1 class="mb-4">{{ t().productos.titulo }}</h1>
 
-    <div class="filtros mb-4" role="tablist">
-      @for (c of categorias; track c.id) {
-        <button type="button" class="chip" [class.on]="filtro() === c.id" (click)="filtro.set(c.id)">{{ c.etiqueta }}</button>
+    <div class="filtros mb-4">
+      @for (f of filtros; track f) {
+        <button type="button" class="chip" [class.on]="filtro() === f" (click)="filtro.set(f)">
+          {{ t().productos.categorias[f] }}
+        </button>
       }
     </div>
 
     <div class="row g-4">
       @for (p of lista(); track p.id) {
+        @let item = texto(p.id);
         <div class="col-12 col-md-6 col-lg-4">
           <article class="producto h-100">
             <span class="ico">{{ p.icono }}</span>
-            <h2 class="h5">{{ p.nombre }}</h2>
-            <p class="desc">{{ p.descripcion }}</p>
+            <h2 class="h5">{{ item.nombre }}</h2>
+            <p class="desc">{{ item.descripcion }}</p>
             <ul>
-              @for (c of p.caracteristicas; track c) { <li>{{ c }}</li> }
+              @for (c of item.caracteristicas; track c) { <li>{{ c }}</li> }
             </ul>
             <div class="pie">
-              <span class="precio">Desde {{ p.precioDesde | currency:'EUR':'symbol':'1.0-0' }}</span>
-              <a class="btn btn-eco btn-sm" [routerLink]="['/presupuesto']" [queryParams]="{ producto: p.id }">Pedir presupuesto</a>
+              <span class="precio">
+                {{ t().productos.desde }}
+                {{ p.precioDesde | currency:'EUR':'symbol':'1.0-0':t().meta.locale }}
+              </span>
+              <a class="btn btn-eco btn-sm" [routerLink]="i18n.l('/presupuesto')" [queryParams]="{ producto: p.id }">
+                {{ t().nav.presupuesto }}
+              </a>
             </div>
           </article>
         </div>

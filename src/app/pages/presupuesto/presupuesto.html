@@ -2,60 +2,60 @@
   <div class="container">
     <div class="row g-5">
       <div class="col-12 col-lg-5">
-        <p class="eyebrow">Sin compromiso</p>
-        <h1 class="mb-3">Pide tu presupuesto</h1>
-        <p class="muted">Cuéntanos qué necesitas y te responderemos en menos de 24 horas laborables.</p>
+        <p class="eyebrow">{{ t().presupuesto.eyebrow }}</p>
+        <h1 class="mb-3">{{ t().presupuesto.titulo }}</h1>
+        <p class="muted">{{ t().presupuesto.intro }}</p>
         <ul class="puntos">
-          <li>Visita técnica gratuita en Plasencia y alrededores</li>
-          <li>Instalación y legalización incluidas</li>
-          <li>Información sobre ayudas y subvenciones</li>
+          @for (punto of t().presupuesto.puntos; track punto) { <li>{{ punto }}</li> }
         </ul>
       </div>
 
       <div class="col-12 col-lg-7">
         @if (enviado()) {
           <div class="ok" role="status">
-            <h2 class="h4">¡Solicitud enviada!</h2>
-            <p class="mb-3">Gracias, nos pondremos en contacto contigo muy pronto.</p>
-            <button class="btn btn-eco" type="button" (click)="enviado.set(false)">Enviar otra solicitud</button>
+            <h2 class="h4">{{ t().presupuesto.okTitulo }}</h2>
+            <p class="mb-3">{{ t().presupuesto.okTexto }}</p>
+            <button class="btn btn-eco" type="button" (click)="enviado.set(false)">
+              {{ t().presupuesto.okBoton }}
+            </button>
           </div>
         } @else {
           <form [formGroup]="form" (ngSubmit)="enviar()" novalidate class="formulario">
             <div class="row g-3">
               <div class="col-12 col-md-6">
-                <label for="nombre" class="form-label">Nombre</label>
+                <label for="nombre" class="form-label">{{ t().presupuesto.campos.nombre }}</label>
                 <input id="nombre" class="form-control" formControlName="nombre" autocomplete="name" [class.is-invalid]="invalido('nombre')">
-                <div class="invalid-feedback">Indica tu nombre.</div>
+                <div class="invalid-feedback">{{ t().presupuesto.errores.nombre }}</div>
               </div>
               <div class="col-12 col-md-6">
-                <label for="telefono" class="form-label">Teléfono</label>
+                <label for="telefono" class="form-label">{{ t().presupuesto.campos.telefono }}</label>
                 <input id="telefono" class="form-control" formControlName="telefono" type="tel" autocomplete="tel" [class.is-invalid]="invalido('telefono')">
-                <div class="invalid-feedback">Teléfono no válido.</div>
+                <div class="invalid-feedback">{{ t().presupuesto.errores.telefono }}</div>
               </div>
               <div class="col-12">
-                <label for="email" class="form-label">Email</label>
+                <label for="email" class="form-label">{{ t().presupuesto.campos.email }}</label>
                 <input id="email" class="form-control" formControlName="email" type="email" autocomplete="email" [class.is-invalid]="invalido('email')">
-                <div class="invalid-feedback">Email no válido.</div>
+                <div class="invalid-feedback">{{ t().presupuesto.errores.email }}</div>
               </div>
               <div class="col-12">
-                <label for="producto" class="form-label">Producto de interés</label>
+                <label for="producto" class="form-label">{{ t().presupuesto.campos.producto }}</label>
                 <select id="producto" class="form-select" formControlName="producto">
-                  <option value="">Selecciona un producto (opcional)</option>
-                  @for (p of productos; track p.id) { <option [value]="p.id">{{ p.nombre }}</option> }
+                  <option value="">{{ t().presupuesto.selectVacio }}</option>
+                  @for (p of productos; track p.id) { <option [value]="p.id">{{ nombre(p.id) }}</option> }
                 </select>
               </div>
               <div class="col-12">
-                <label for="mensaje" class="form-label">Mensaje</label>
-                <textarea id="mensaje" class="form-control" rows="4" formControlName="mensaje" placeholder="Tipo de vivienda, vehículo, potencia contratada…"></textarea>
+                <label for="mensaje" class="form-label">{{ t().presupuesto.campos.mensaje }}</label>
+                <textarea id="mensaje" class="form-control" rows="4" formControlName="mensaje" [placeholder]="t().presupuesto.placeholderMensaje"></textarea>
               </div>
               <div class="col-12">
                 <div class="form-check">
                   <input id="privacidad" type="checkbox" class="form-check-input" formControlName="privacidad" [class.is-invalid]="invalido('privacidad')">
-                  <label for="privacidad" class="form-check-label">Acepto la política de privacidad y el tratamiento de mis datos.</label>
+                  <label for="privacidad" class="form-check-label">{{ t().presupuesto.campos.privacidad }}</label>
                 </div>
               </div>
               <div class="col-12">
-                <button type="submit" class="btn btn-eco">Solicitar presupuesto</button>
+                <button type="submit" class="btn btn-eco">{{ t().presupuesto.boton }}</button>
               </div>
             </div>
           </form>
