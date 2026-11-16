@@ -52,6 +52,11 @@ export const en: Dict = {
     eyebrowFinal: 'Charge at home or at your business',
     tituloFinal: 'From the socket to the road',
     verProductos: 'See products',
+    persianaEyebrow: 'Installation',
+    persianaTitulo: 'Charge at home, on your own energy',
+    persianaTexto:
+      'We install the charging point in your garage or on the front wall. And if you add solar panels, the car charges on the energy your own roof produces.',
+    altPersiana: 'Charging point installed at a home with solar panels on the roof',
     ventajasEyebrow: 'Why switch to electric',
     ventajasTitulo: 'The advantages of electric mobility',
     ventajas: [

@@ -73,7 +73,17 @@ fallo que no existía: para antes el proceso viejo en vez de medir sobre él.
    `.row` anulan el `margin: auto` de `.container` y el bloque se pega a la
    izquierda dejando un hueco a la derecha. Pasó en el pie.
 
-8. **Al cargar solo se esconde lo que no se ve.** El HTML llega pintado del
+8. **El `pin` de GSAP y la hidratación se llevan mal.** Al pinar, ScrollTrigger
+   envuelve el hero en un `.pin-spacer`. Si la hidratación sustituye los nodos
+   después, ese espaciador se queda huérfano en la página: un hueco vacío de dos
+   mil píxeles **por encima** del hero, que además deja de responder al scroll.
+   Se ve como si la portada saliera duplicada. [home.ts](src/app/pages/home/home.ts)
+   lo rehace cuando detecta que el hero montado ya no está en la página; la
+   condición `heroMontado.isConnected` es también lo que evita el bucle, porque
+   el propio `pin` mete y saca nodos. Si vuelve a aparecer el hueco, mira cuántos
+   `.pin-spacer` hay: tiene que haber exactamente uno.
+
+9. **Al cargar solo se esconde lo que no se ve.** El HTML llega pintado del
    servidor; esconder lo que ya está a la vista para animarlo da un parpadeo. Y las
    clases de animación las pone siempre el navegador, nunca el servidor, para que
    un buscador o alguien sin JavaScript lo vea todo.

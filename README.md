@@ -91,6 +91,16 @@ El hero son **dos capas**, no dos imágenes sueltas, porque las fotos tienen enc
 
 Para cambiar la duración del efecto, ajusta `end: '+=150%'`.
 
+## Persiana de la portada
+
+Debajo del hero hay un segundo montaje: la foto se parte en ocho tiras verticales que giran una tras otra y dejan ver la segunda foto, como una persiana. Está en la misma sección `.persiana` de [home.html](src/app/pages/home/home.html) / [home.scss](src/app/pages/home/home.scss).
+
+No usa GSAP, sino el mismo ayudante que productos e info ([ui/aparicion.ts](src/app/ui/aparicion.ts)), con la opción `repetir`: gira al asomar la sección y **deshace el giro al salir de pantalla**, así que al volver a bajar se ve otra vez desde la primera foto. Por eso aquí el giro es una `transition` y no una animación —tiene que poder ir y volver—, y en este caso no hay riesgo de que otra regla la pise, que es lo que obliga a usar `@keyframes` en las tarjetas.
+
+Las tiras no son ocho imágenes recortadas: son ocho cajas con **la misma foto de fondo ampliada a ocho anchos** (`background-size: 800% 100%`), y cada una se queda con su trozo moviendo el `background-position`. El porcentaje lo calcula `corte()` en [home.ts](src/app/pages/home/home.ts), y se reparte entre n − 1 porque el 0 % alinea el borde izquierdo y el 100 % el derecho. Si cambias el número de tiras hay que tocar `FRANJAS` en el componente **y** `--franjas` en los estilos: los dos tienen que decir lo mismo.
+
+El panel lleva fondo oscuro a propósito: cuando una tira pasa de canto deja de verse, y sin ese fondo se vería el blanco de la página, que parece un agujero en vez de una sombra.
+
 ## Efectos de scroll del resto de páginas
 
 Fuera de la portada no se usa GSAP, sino [ui/aparicion.ts](src/app/ui/aparicion.ts): un ayudante pequeño sobre `IntersectionObserver` que pone una clase a cada elemento cuando asoma por abajo, escalonando los que entran a la vez. Lo usan **productos** (las tarjetas entran en cascada, y al pulsar un filtro entran todas otra vez) e **info** (las cajas de tipos de carga entran y su medidor se llena como una batería, cada uno hasta su nivel).

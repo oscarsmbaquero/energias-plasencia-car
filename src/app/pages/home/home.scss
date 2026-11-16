@@ -35,7 +35,11 @@
 
   @media (max-width: 767.98px) {
     justify-content: center;
-    padding: 0 1rem 20%;
+    /* Arriba y no centrado: centrado dejaba un hueco muerto bajo la cabecera y
+       el cargador quedaba pegado al texto. El tope va en `vh` (no en %, que se
+       mide sobre el ancho) para que en pantallas cortas suba en proporción. */
+    align-items: flex-start;
+    padding: 5vh 1rem 0;
     .producto { height: 46%; max-width: 78%; max-height: none; }
   }
 }
@@ -84,6 +88,84 @@
   p { color: $muted; }
   .ico { font-size: 2rem; display: block; margin-bottom: .75rem; }
 }
+/* ---- Persiana de franjas -------------------------------------------------
+   Dos fotos y ocho tiras verticales. Cada tira es una tarjeta de dos caras: el
+   frente enseña su trozo de la primera foto y el dorso el mismo trozo de la
+   segunda. Al girar media vuelta, una tras otra, la imagen se cambia sola.
+
+   El truco del recorte: la misma foto de fondo, ampliada a ocho anchos de tira
+   (`background-size: 800% 100%`), y cada tira se queda con su parte moviendo
+   `background-position` (la calcula `corte()` en home.ts). */
+.persiana {
+  --franjas: 8;
+
+  .texto-persiana { color: $muted; }
+
+  .panel {
+    position: relative;
+    display: flex;
+    aspect-ratio: 16 / 9;
+    border-radius: 1rem;
+    overflow: hidden;
+    // Cuando una tira pasa de canto deja de verse: sin este fondo se vería el
+    // blanco de la página y parecería un agujero en vez de una persiana.
+    background: $dark;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, .12);
+    // La profundidad que hace que el giro se vea en 3D y no como un aplastado.
+    perspective: 1400px;
+  }
+
+  .franja {
+    position: relative;
+    flex: 1 1 0;
+    // Un pelo de solape: evita las rayas claras que deja el redondeo de píxeles
+    // entre tira y tira.
+    margin-right: -1px;
+    &:last-child { margin-right: 0; }
+  }
+
+  .giro {
+    position: absolute;
+    inset: 0;
+    transform-style: preserve-3d;
+    transform: rotateY(0deg);
+    /* Aquí sí vale una transición y no una animación: la tira tiene que poder
+       deshacer el giro al salir de pantalla, y nada más pone `transition` sobre
+       este elemento, que es lo que estropea las entradas de las tarjetas. */
+    transition: transform .75s cubic-bezier(.65, 0, .35, 1);
+    transition-delay: calc(var(--retraso, 0s) + var(--i) * .07s);
+  }
+
+  .cara {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    background-size: calc(var(--franjas) * 100%) 100%;
+    background-position: var(--x) center;
+    background-repeat: no-repeat;
+  }
+
+  .frente { background-image: url('/images/renualt-cargando.jpg'); }
+
+  // El dorso va girado media vuelta: así, cuando la tira gira, esta cara queda
+  // de frente y además sin espejar.
+  .dorso {
+    background-image: url('/images/tesla-cargador.webp');
+    transform: rotateY(180deg);
+  }
+
+  .panel.visible .giro { transform: rotateY(180deg); }
+
+  @media (max-width: 575.98px) {
+    .panel { border-radius: .75rem; }
+  }
+
+  // Sin movimiento: se enseña directamente la foto final, como hace el hero.
+  @media (prefers-reduced-motion: reduce) {
+    .giro { transform: rotateY(180deg); transition: none; }
+  }
+}
+
 // Banda de cierre en blanco, como el pie: la sección anterior va en $surface,
 // así que el cambio de tono sigue marcando la separación.
 .cta-band {

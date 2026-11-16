@@ -53,6 +53,11 @@ export const pt: Dict = {
     eyebrowFinal: 'Carregue em casa ou na sua empresa',
     tituloFinal: 'Da tomada à estrada',
     verProductos: 'Ver produtos',
+    persianaEyebrow: 'Instalação',
+    persianaTitulo: 'Carregue em casa, com a sua própria energia',
+    persianaTexto:
+      'Instalamos o ponto de carregamento na sua garagem ou na fachada. E se juntar painéis solares, o carro carrega com a energia que o seu telhado produz.',
+    altPersiana: 'Ponto de carregamento instalado numa habitação com painéis solares no telhado',
     ventajasEyebrow: 'Porque mudar para o elétrico',
     ventajasTitulo: 'Vantagens da mobilidade elétrica',
     ventajas: [

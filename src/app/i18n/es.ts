@@ -56,6 +56,11 @@ export const es = {
     eyebrowFinal: 'Carga en casa o en tu empresa',
     tituloFinal: 'Del enchufe a la carretera',
     verProductos: 'Ver productos',
+    persianaEyebrow: 'Instalación',
+    persianaTitulo: 'Carga en casa, con tu propia energía',
+    persianaTexto:
+      'Instalamos el punto de carga en tu garaje o en la fachada. Y si además pones placas solares, el coche se carga con la energía que produce tu tejado.',
+    altPersiana: 'Punto de carga instalado en una vivienda con placas solares en el tejado',
     ventajasEyebrow: 'Por qué pasarte al eléctrico',
     ventajasTitulo: 'Ventajas de la movilidad eléctrica',
     ventajas: [

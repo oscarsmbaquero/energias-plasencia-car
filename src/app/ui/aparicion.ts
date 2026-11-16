@@ -14,6 +14,12 @@ export interface OpcionesAparicion {
   desfase?: number;
   /** Cuánto tiene que asomar por abajo antes de dispararse. */
   margen?: string;
+  /**
+   * Por defecto cada elemento se anima una sola vez y se deja de vigilar. Con
+   * esto se le quita la clase al salir de pantalla, de modo que vuelve a su
+   * estado de partida y se repite cada vez que entra.
+   */
+  repetir?: boolean;
 }
 
 /**
@@ -119,7 +125,8 @@ export class Aparicion {
   }
 
   private vigilar(elementos: HTMLElement[]): void {
-    const { clase = 'visible', desfase = DESFASE, margen = '-80px' } = this.opciones;
+    const { clase = 'visible', claseOculta, desfase = DESFASE, margen = '-80px', repetir } =
+      this.opciones;
 
     this.observador = new IntersectionObserver(
       (entradas, obs) => {
@@ -133,8 +140,21 @@ export class Aparicion {
         entrando.forEach((el, i) => {
           el.style.setProperty('--retraso', `${i * desfase}s`);
           el.classList.add(clase);
-          obs.unobserve(el);
+          // Sin `repetir` basta con una vez: se deja de vigilar y no gasta más.
+          if (!repetir) obs.unobserve(el);
         });
+
+        if (!repetir) return;
+
+        // Al salir de pantalla vuelve al estado de partida, para que la próxima
+        // vez que entre se vea otra vez el efecto desde el principio.
+        for (const entrada of entradas) {
+          if (entrada.isIntersecting) continue;
+          const el = entrada.target as HTMLElement;
+          el.classList.remove(clase);
+          el.style.removeProperty('--retraso');
+          if (claseOculta) el.classList.add(claseOculta);
+        }
       },
       { rootMargin: `0px 0px ${margen} 0px`, threshold: 0.01 }
     );
