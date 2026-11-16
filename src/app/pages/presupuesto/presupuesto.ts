@@ -1,12 +1,13 @@
 import { Component, effect, inject, input, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 import { PRODUCTOS, ProductoId } from '../../data/productos';
 import { I18n } from '../../i18n/i18n';
 
 @Component({
   selector: 'app-presupuesto',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './presupuesto.html',
   styleUrl: './presupuesto.scss'
 })

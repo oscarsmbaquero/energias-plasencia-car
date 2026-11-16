@@ -1,0 +1,22 @@
+@if (cookies.visible()) {
+  <aside class="aviso" role="dialog" aria-modal="false" [attr.aria-label]="t().aviso.etiqueta">
+    <div class="container caja">
+      <div class="texto">
+        <strong>{{ t().aviso.titulo }}</strong>
+        <p>
+          {{ t().aviso.texto }}
+          <a [routerLink]="i18n.l('/cookies')">{{ t().aviso.masInfo }}</a>
+        </p>
+      </div>
+      <!-- Rechazar cuesta lo mismo que aceptar: un solo clic y al mismo nivel. -->
+      <div class="acciones">
+        <button type="button" class="btn btn-outline-eco btn-sm" (click)="cookies.decidir('rechazado')">
+          {{ t().aviso.rechazar }}
+        </button>
+        <button type="button" class="btn btn-eco btn-sm" (click)="cookies.decidir('aceptado')">
+          {{ t().aviso.aceptar }}
+        </button>
+      </div>
+    </div>
+  </aside>
+}

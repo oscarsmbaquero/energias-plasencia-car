@@ -51,7 +51,7 @@
               <div class="col-12">
                 <div class="form-check">
                   <input id="privacidad" type="checkbox" class="form-check-input" formControlName="privacidad" [class.is-invalid]="invalido('privacidad')">
-                  <label for="privacidad" class="form-check-label">{{ t().presupuesto.campos.privacidad }}</label>
+                  <label for="privacidad" class="form-check-label">{{ t().presupuesto.campos.privacidadAntes }}<a [routerLink]="i18n.l('/privacidad')" target="_blank" rel="noopener">{{ t().presupuesto.campos.privacidadEnlace }}</a>{{ t().presupuesto.campos.privacidadDespues }}</label>
                 </div>
               </div>
               <div class="col-12">

@@ -86,6 +86,19 @@
       <p class="mb-1">{{ t().footer.ciudad }}</p>
       <p class="mb-0">info&#64;energiasplasencia.es</p>
     </div>
-    <div class="col-12 creditos">© {{ anio }} Energías Plasencia SL · {{ t().footer.derechos }}</div>
+    <div class="col-12 creditos">
+      <span>© {{ anio }} Energías Plasencia SL · {{ t().footer.derechos }}</span>
+      <span class="legales">
+        <a [routerLink]="i18n.l('/privacidad')">{{ t().footer.privacidad }}</a>
+        <a [routerLink]="i18n.l('/cookies')">{{ t().footer.cookies }}</a>
+        <button type="button" (click)="cookies.reabrir()">{{ t().footer.configurarCookies }}</button>
+      </span>
+    </div>
+    <div class="col-12 powered">
+      Powered by
+      <a href="https://portfolio-sigma-six-0fwnv90i33.vercel.app/" target="_blank" rel="noopener noreferrer">Why? AI</a>
+    </div>
   </div>
 </footer>
+
+<app-aviso-cookies />

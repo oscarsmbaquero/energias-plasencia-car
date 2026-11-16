@@ -1,0 +1,47 @@
+<section class="section legal">
+  <div class="container">
+    <p class="eyebrow">{{ t().footer.legal }}</p>
+    <h1 class="mb-3">{{ contenido().titulo }}</h1>
+    <p class="lead muted">{{ contenido().entradilla }}</p>
+    <p class="actualizado">{{ t().legal.actualizado }}</p>
+
+    @for (seccion of contenido().secciones; track seccion.h) {
+      <h2 class="h5">{{ seccion.h }}</h2>
+      @for (parrafo of seccion.p; track parrafo) {
+        <p>{{ parrafo }}</p>
+      }
+    }
+
+    @if (tabla(); as tb) {
+      <h2 class="h5">{{ tb.titulo }}</h2>
+      <div class="tabla">
+        <table>
+          <thead>
+            <tr>
+              @for (cabecera of tb.cabeceras; track cabecera) { <th scope="col">{{ cabecera }}</th> }
+            </tr>
+          </thead>
+          <tbody>
+            @for (fila of tb.filas; track fila[0]) {
+              <tr>
+                @for (celda of fila; track $index) { <td>{{ celda }}</td> }
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <button type="button" class="btn btn-eco mt-3" (click)="cookies.reabrir()">
+        {{ t().footer.configurarCookies }}
+      </button>
+    }
+
+    <p class="otros">
+      @if (esCookies()) {
+        <a [routerLink]="i18n.l('/privacidad')">{{ t().footer.privacidad }}</a>
+      } @else {
+        <a [routerLink]="i18n.l('/cookies')">{{ t().footer.cookies }}</a>
+      }
+    </p>
+  </div>
+</section>

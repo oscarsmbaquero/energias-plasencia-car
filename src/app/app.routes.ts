@@ -14,6 +14,9 @@ function paginas(): Routes {
     { path: 'productos', loadComponent: () => import('./pages/productos/productos').then(m => m.Productos) },
     { path: 'info', loadComponent: () => import('./pages/info/info').then(m => m.Info) },
     { path: 'presupuesto', loadComponent: () => import('./pages/presupuesto/presupuesto').then(m => m.Presupuesto) },
+    // `data.doc` llega al input del componente (withComponentInputBinding).
+    { path: 'privacidad', data: { doc: 'privacidad' }, loadComponent: () => import('./pages/legal/legal').then(m => m.Legal) },
+    { path: 'cookies', data: { doc: 'cookies' }, loadComponent: () => import('./pages/legal/legal').then(m => m.Legal) },
     // Cualquier otra cosa dentro del idioma vuelve a su portada.
     { path: '**', redirectTo: '' }
   ];

@@ -28,7 +28,22 @@ export const es = {
     secciones: 'Secciones',
     contacto: 'Contacto',
     ciudad: 'Plasencia, Cáceres',
-    derechos: 'Todos los derechos reservados'
+    derechos: 'Todos los derechos reservados',
+    legal: 'Legal',
+    privacidad: 'Política de privacidad',
+    cookies: 'Política de cookies',
+    configurarCookies: 'Configurar cookies'
+  },
+
+  /** Aviso de cookies que aparece al entrar. */
+  aviso: {
+    titulo: 'Cookies y privacidad',
+    texto:
+      'Esta web solo guarda en tu navegador lo imprescindible para funcionar y para recordar esta elección. Si aceptas, podremos usar además cookies de medición para saber qué páginas se visitan.',
+    aceptar: 'Aceptar',
+    rechazar: 'Rechazar',
+    masInfo: 'Más información',
+    etiqueta: 'Aviso de cookies'
   },
 
   home: {
@@ -147,7 +162,9 @@ export const es = {
       email: 'Email',
       producto: 'Producto de interés',
       mensaje: 'Mensaje',
-      privacidad: 'Acepto la política de privacidad y el tratamiento de mis datos.'
+      privacidadAntes: 'Acepto la ',
+      privacidadEnlace: 'política de privacidad',
+      privacidadDespues: ' y el tratamiento de mis datos.'
     },
     errores: {
       nombre: 'Indica tu nombre.',
@@ -157,6 +174,120 @@ export const es = {
     selectVacio: 'Selecciona un producto (opcional)',
     placeholderMensaje: 'Tipo de vivienda, vehículo, potencia contratada…',
     boton: 'Solicitar presupuesto'
+  },
+
+  /**
+   * Textos legales. Son una plantilla: lo que aparece entre corchetes hay que
+   * completarlo con los datos reales de la empresa y conviene que lo revise un
+   * abogado antes de publicar.
+   */
+  legal: {
+    actualizado: 'Última actualización: 16 de noviembre de 2026',
+    privacidad: {
+      titulo: 'Política de privacidad',
+      entradilla:
+        'Aquí explicamos quién trata tus datos cuando usas esta web, para qué, durante cuánto tiempo y qué puedes hacer al respecto.',
+      secciones: [
+        {
+          h: 'Quién es el responsable',
+          p: [
+            'Energías Plasencia SL, con CIF [CIF por completar] y domicilio en [dirección por completar], Plasencia (Cáceres), España.',
+            'Puedes escribirnos a info@energiasplasencia.es para cualquier cuestión relacionada con tus datos.'
+          ]
+        },
+        {
+          h: 'Qué datos tratamos y para qué',
+          p: [
+            'Solo los que nos facilitas en el formulario de presupuesto: nombre, teléfono, correo electrónico, el producto que te interesa y el mensaje que escribas.',
+            'Los usamos para responder a tu solicitud, preparar el presupuesto y mantener el contacto necesario hasta cerrarlo. No tomamos decisiones automatizadas ni elaboramos perfiles.'
+          ]
+        },
+        {
+          h: 'Por qué podemos tratarlos',
+          p: [
+            'Por tu consentimiento, que nos das al marcar la casilla y enviar el formulario, y por la necesidad de aplicar medidas precontractuales a petición tuya, que es lo que es un presupuesto.'
+          ]
+        },
+        {
+          h: 'Cuánto tiempo los guardamos',
+          p: [
+            'Mientras gestionamos tu solicitud y, después, durante los plazos que exige la ley para las obligaciones contables y fiscales. Cumplidos esos plazos, se suprimen.',
+            'Si nos pides que los borremos antes, lo hacemos salvo que tengamos obligación legal de conservarlos.'
+          ]
+        },
+        {
+          h: 'Con quién los compartimos',
+          p: [
+            'No vendemos ni cedemos tus datos. Solo acceden a ellos los proveedores que nos prestan servicios (alojamiento web y correo electrónico), como encargados del tratamiento y con contrato de por medio.',
+            'Fuera de eso, únicamente los comunicaríamos si nos lo exigiera una obligación legal.'
+          ]
+        },
+        {
+          h: 'Qué derechos tienes',
+          p: [
+            'Puedes acceder a tus datos, rectificarlos, suprimirlos, oponerte al tratamiento, pedir que se limite, solicitar su portabilidad y retirar tu consentimiento en cualquier momento.',
+            'Para ejercerlos, escribe a info@energiasplasencia.es indicando qué derecho quieres ejercer. Si crees que no te hemos atendido bien, puedes reclamar ante la Agencia Española de Protección de Datos (www.aepd.es).'
+          ]
+        },
+        {
+          h: 'Seguridad',
+          p: [
+            'La web se sirve cifrada (HTTPS) y aplicamos las medidas técnicas y organizativas razonables para evitar que tus datos se pierdan o acaben en manos de quien no debe.'
+          ]
+        },
+        {
+          h: 'Cambios en esta política',
+          p: [
+            'Si cambiamos la forma de tratar los datos, actualizaremos esta página y la fecha que aparece arriba.'
+          ]
+        }
+      ]
+    },
+    cookies: {
+      titulo: 'Política de cookies',
+      entradilla:
+        'Qué guarda esta web en tu navegador, para qué sirve y cómo puedes cambiar tu decisión cuando quieras.',
+      secciones: [
+        {
+          h: 'Qué son',
+          p: [
+            'Son pequeños archivos o datos que una web guarda en tu navegador. Sirven para que funcione (recordar que ya has visto un aviso, por ejemplo) o para medir cómo se usa. Las normas son las mismas para las cookies y para el almacenamiento local del navegador, que es lo que usamos aquí.'
+          ]
+        },
+        {
+          h: 'Qué usamos ahora mismo',
+          p: [
+            'Solo almacenamiento técnico: un dato que recuerda si aceptaste o rechazaste este aviso, para no volver a preguntártelo en cada visita. Sin él, el aviso aparecería una y otra vez.',
+            'No hay cookies de analítica ni de publicidad instaladas. Si en el futuro añadimos medición (por ejemplo, Google Analytics), solo se cargará si la aceptas y lo detallaremos en esta tabla.'
+          ]
+        },
+        {
+          h: 'Servicios de terceros',
+          p: [
+            'Las tipografías de la web se cargan desde Google Fonts, lo que implica que tu navegador se conecta a servidores de Google y que estos reciben tu dirección IP. No instalan cookies por ese uso.'
+          ]
+        },
+        {
+          h: 'Cómo cambiar tu decisión',
+          p: [
+            'Pulsa «Configurar cookies» en el pie de la web para volver a ver el aviso y elegir de nuevo.',
+            'También puedes borrar los datos del sitio desde tu navegador, o bloquearlos directamente: en Chrome, Edge, Firefox y Safari se hace desde los ajustes de privacidad. Ten en cuenta que bloquear el almacenamiento técnico hará que el aviso te aparezca en cada visita.'
+          ]
+        }
+      ],
+      tabla: {
+        titulo: 'Lo que se guarda',
+        cabeceras: ['Nombre', 'Tipo', 'Finalidad', 'Duración'],
+        filas: [
+          [
+            'epc-consentimiento',
+            'Técnica (almacenamiento local)',
+            'Recordar si aceptaste o rechazaste el aviso de cookies',
+            '12 meses'
+          ]
+        ]
+      }
+    }
   },
 
   seo: {
@@ -180,6 +311,16 @@ export const es = {
       title: 'Pedir presupuesto de punto de carga | Energías Plasencia car',
       description:
         'Pide presupuesto sin compromiso para instalar tu punto de carga en Plasencia. Visita técnica gratuita, instalación y legalización incluidas.'
+    },
+    privacidad: {
+      title: 'Política de privacidad | Energías Plasencia car',
+      description:
+        'Quién trata tus datos cuando usas esta web, con qué finalidad, durante cuánto tiempo se conservan y cómo ejercer tus derechos.'
+    },
+    cookies: {
+      title: 'Política de cookies | Energías Plasencia car',
+      description:
+        'Qué guarda esta web en tu navegador, para qué sirve y cómo cambiar tu decisión sobre el aviso de cookies en cualquier momento.'
     }
   }
 };

@@ -21,6 +21,8 @@ npm run serve:ssr:energia-plasencia-car   # sirve el build en http://localhost:4
 | `/productos` | Catálogo de puntos de carga y energía solar, filtrable por categoría |
 | `/info` | Tipos de carga y preguntas frecuentes |
 | `/presupuesto` | Formulario reactivo con validación |
+| `/privacidad` | Política de privacidad |
+| `/cookies` | Política de cookies |
 
 Cada una existe en los tres idiomas: `/productos`, `/en/productos`, `/pt/productos`. Las rutas se cargan con `loadComponent` (lazy loading), así GSAP solo se descarga en la portada.
 
@@ -37,7 +39,7 @@ El idioma lo manda **la URL**, no una preferencia guardada: el español vive en 
 
 ## SSR y prerenderizado
 
-Las 12 páginas (4 × 3 idiomas) se generan como **HTML estático durante el build**: el buscador recibe el contenido ya renderizado y el visitante ve la página antes de que arranque JavaScript. Lo que no esté en esa lista se renderiza en el servidor al pedirlo ([app.routes.server.ts](src/app/app.routes.server.ts)).
+Las 18 páginas (6 × 3 idiomas) se generan como **HTML estático durante el build**: el buscador recibe el contenido ya renderizado y el visitante ve la página antes de que arranque JavaScript. Lo que no esté en esa lista se renderiza en el servidor al pedirlo ([app.routes.server.ts](src/app/app.routes.server.ts)).
 
 > **Importante al desplegar:** el motor SSR valida la cabecera `Host`. Si el dominio no está en `allowedHosts` (en `architect.build.options.security` de [angular.json](angular.json)), **el servidor deja de renderizar y devuelve la versión vacía para el cliente**, que es justo lo que no quieres que vea Google. Pon ahí el dominio real, o pásalo al arrancar con `NG_ALLOWED_HOSTS=midominio.es`. Si el servidor está detrás de un proxy o CDN, configura además `trustProxyHeaders`.
 
@@ -53,9 +55,22 @@ Lo que no sea una ruta conocida redirige (302) a la portada de su idioma.
 - Open Graph y Twitter Card (para enlaces compartidos en redes y WhatsApp).
 - **Datos estructurados** JSON-LD: ficha `LocalBusiness` con la zona de servicio y los productos como ofertas, y `FAQPage` en `/info`, que es lo que puede hacer que las preguntas salgan desplegadas en los resultados de Google.
 
-Completan el conjunto [public/robots.txt](public/robots.txt) y [public/sitemap.xml](public/sitemap.xml), con las 12 URLs y sus alternativas de idioma.
+Completan el conjunto [public/robots.txt](public/robots.txt) y [public/sitemap.xml](public/sitemap.xml), con las 18 URLs y sus alternativas de idioma.
 
 El dominio está en un solo sitio del código, `SITIO_URL` de [src/app/seo/sitio.ts](src/app/seo/sitio.ts), **pero también en `robots.txt` y `sitemap.xml`**: si cambia, cámbialo en los tres.
+
+## Cookies y textos legales
+
+> ⚠️ Los textos de [privacidad](src/app/i18n/es.ts) y [cookies](src/app/i18n/es.ts) son **una plantilla**, no un documento jurídico validado. Lo que aparece entre corchetes (`[CIF por completar]`, `[dirección por completar]`) hay que rellenarlo, y conviene que un abogado lo revise antes de publicar: quien responde ante la AEPD es la empresa, no la plantilla.
+
+El aviso aparece abajo al entrar y guarda la decisión **12 meses** en el almacenamiento local del navegador, bajo la clave `epc-consentimiento` ([cookies.ts](src/app/cookies/cookies.ts)). Pasado ese plazo vuelve a preguntar. Rechazar cuesta lo mismo que aceptar —un clic, al lado— porque la norma exige que sea igual de fácil.
+
+Detalles que importan:
+
+- **No se renderiza en el servidor.** El HTML prerenderizado es el mismo para todos, así que si el aviso saliera de ahí lo verían también quienes ya eligieron. Se decide tras hidratar, en el navegador.
+- **Ahora mismo la web no instala ninguna cookie de medición**, y el texto lo dice. Si añades analítica, cárgala solo cuando `cookies.medicionPermitida()` sea cierto y añádela a la tabla de la política; si no, el texto deja de ser verdad.
+- **«Configurar cookies»**, en el pie y al final de la política, vuelve a abrir el aviso.
+- Las tipografías vienen de Google Fonts, es decir, que el navegador del visitante se conecta a servidores de Google. Está declarado en la política de cookies. Si prefieres evitarlo, descarga las fuentes y sírvelas desde `public/`.
 
 ## Efecto de scroll de la portada
 
@@ -79,7 +94,8 @@ Para cambiar la duración del efecto, ajusta `end: '+=150%'`.
 3. **Foto del coche** — `public/images/coche-cargando.jpg` está a 460×288 px, poco para un hero a pantalla completa: se verá borrosa en pantallas grandes. Busca una versión de al menos 1920 px de ancho y guárdala en WebP. Sirve además de imagen para redes (`IMAGEN_SOCIAL`), donde lo ideal son 1200×630 px.
 4. **Productos y precios** — ids, categorías y precios en [src/app/data/productos.ts](src/app/data/productos.ts); nombres y descripciones, en los tres diccionarios de [src/app/i18n/](src/app/i18n/).
 5. **Datos de la empresa** — teléfono, calle y código postal en `EMPRESA` de [sitio.ts](src/app/seo/sitio.ts): aparecen en la ficha de Google. El email y la ciudad del pie están en [app.html](src/app/app.html).
-6. **Envío del formulario** — [presupuesto.ts](src/app/pages/presupuesto/presupuesto.ts) hace `console.log`. Conéctalo a tu backend, a EmailJS o a Formspree donde está el `TODO`.
+6. **Textos legales** — CIF y domicilio en la política de privacidad de los tres diccionarios de [src/app/i18n/](src/app/i18n/), donde pone `[CIF por completar]` y `[dirección por completar]`. Y que los revise un abogado.
+7. **Envío del formulario** — [presupuesto.ts](src/app/pages/presupuesto/presupuesto.ts) hace `console.log`. Conéctalo a tu backend, a EmailJS o a Formspree donde está el `TODO`.
 
 ## Colores de marca
 

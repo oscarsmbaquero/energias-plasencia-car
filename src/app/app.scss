@@ -162,3 +162,57 @@ main { padding-top: 72px; min-height: 80vh; }
     .idiomas-btn, .flecha { transition: none; }
   }
 }
+
+// Firma del pie. Equivale al fragmento de Tailwind: mt-4, text-center,
+// text-[0.6rem], text-outline/50, tracking-widest, uppercase y hover:text-primary.
+.powered {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: .6rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(#fff, .45);
+
+  a {
+    // El pie pone todos sus enlaces en bloque; este va en línea con el texto.
+    display: inline;
+    margin: 0;
+    color: inherit;
+    text-decoration: none;
+    transition: color .2s;
+    &:hover { color: $accent; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    a { transition: none; }
+  }
+}
+
+// Pie: créditos a un lado y enlaces legales al otro.
+.footer .creditos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem 1.5rem;
+
+  .legales {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.25rem;
+
+    a, button {
+      display: inline;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      background: none;
+      font: inherit;
+      color: rgba(#fff, .55);
+      text-decoration: none;
+      cursor: pointer;
+      &:hover { color: $accent; }
+    }
+  }
+}

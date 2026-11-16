@@ -1,11 +1,11 @@
 import { RenderMode, ServerRoute } from '@angular/ssr';
 
-const RUTAS = ['', 'productos', 'info', 'presupuesto'];
+const RUTAS = ['', 'productos', 'info', 'presupuesto', 'privacidad', 'cookies'];
 /** '' = español en la raíz. */
 const PREFIJOS = ['', 'en', 'pt'];
 
 /**
- * Las 12 páginas (4 × 3 idiomas) se generan como HTML estático en el build
+ * Las 18 páginas (6 × 3 idiomas) se generan como HTML estático en el build
  * (prerender): el buscador recibe el contenido ya renderizado y el visitante no
  * espera a que arranque JavaScript. Lo que no esté en la lista se renderiza en
  * el servidor al pedirlo.

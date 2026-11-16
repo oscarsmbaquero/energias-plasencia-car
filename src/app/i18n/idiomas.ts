@@ -5,14 +5,16 @@ export const IDIOMAS = ['es', 'en', 'pt'] as const;
 export type Idioma = (typeof IDIOMAS)[number];
 export const IDIOMA_DEFECTO: Idioma = 'es';
 
-export type Pagina = 'home' | 'productos' | 'info' | 'presupuesto';
+export type Pagina = 'home' | 'productos' | 'info' | 'presupuesto' | 'privacidad' | 'cookies';
 
 /** Ruta (sin prefijo de idioma) → página, para los metadatos de SEO. */
 const PAGINAS: Record<string, Pagina> = {
   '/': 'home',
   '/productos': 'productos',
   '/info': 'info',
-  '/presupuesto': 'presupuesto'
+  '/presupuesto': 'presupuesto',
+  '/privacidad': 'privacidad',
+  '/cookies': 'cookies'
 };
 
 export interface Ubicacion {

@@ -1,0 +1,59 @@
+@use '../../../styles/variables' as *;
+
+.legal {
+  .container { max-width: 56rem; }
+
+  h2 {
+    margin-top: 2.25rem;
+    margin-bottom: .75rem;
+    color: $brand-black;
+  }
+
+  p { color: $text; line-height: 1.7; }
+  .lead { color: $muted; }
+
+  .actualizado {
+    font-size: .85rem;
+    color: $muted;
+    border-left: 3px solid $accent;
+    padding-left: .75rem;
+    margin-bottom: 2rem;
+  }
+
+  .tabla {
+    overflow-x: auto;
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .9rem;
+      min-width: 36rem;
+    }
+
+    th, td {
+      text-align: left;
+      padding: .7rem .8rem;
+      border-bottom: 1px solid $border;
+      vertical-align: top;
+    }
+
+    th {
+      background: $surface;
+      font-weight: 700;
+      font-size: .8rem;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: $muted;
+    }
+
+    td:first-child { font-family: ui-monospace, 'Cascadia Code', Consolas, monospace; }
+  }
+
+  .otros {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid $border;
+
+    a { color: $primary; font-weight: 600; text-decoration: none; &:hover { text-decoration: underline; } }
+  }
+}
