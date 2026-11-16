@@ -1,0 +1,55 @@
+// Bootstrap (solo lo necesario: grid, reboot, formularios, botones, utilidades)
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/variables-dark';
+@import 'bootstrap/scss/maps';
+@import 'bootstrap/scss/mixins';
+@import 'bootstrap/scss/utilities';
+@import 'bootstrap/scss/root';
+@import 'bootstrap/scss/reboot';
+@import 'bootstrap/scss/type';
+@import 'bootstrap/scss/containers';
+@import 'bootstrap/scss/grid';
+@import 'bootstrap/scss/forms';
+@import 'bootstrap/scss/buttons';
+@import 'bootstrap/scss/helpers';
+@import 'bootstrap/scss/utilities/api';
+
+@import 'styles/variables';
+
+body {
+  font-family: $font-body;
+  background: $bg;
+  color: $text;
+}
+
+h1, h2, h3, h4 { font-weight: 700; letter-spacing: -0.02em; }
+
+.section { padding: 5rem 0; }
+.section-alt { background: $surface; }
+
+.eyebrow {
+  text-transform: uppercase; letter-spacing: .15em; font-size: .8rem;
+  color: $brand-orange; font-weight: 700;
+}
+.text-verde { color: $brand-green; }
+
+.btn-eco {
+  background: $brand-orange; color: #fff; font-weight: 600;
+  border-radius: 999px; padding: .75rem 1.75rem; border: 0;
+  transition: transform .2s, box-shadow .2s, background-color .2s;
+  &:hover { background: darken($brand-orange, 6%); color: #fff; transform: translateY(-2px); box-shadow: 0 8px 22px rgba($brand-orange, .35); }
+}
+.btn-verde {
+  background: $brand-green; color: #fff; font-weight: 600;
+  border-radius: 999px; padding: .75rem 1.75rem; border: 0;
+  &:hover { background: darken($brand-green, 6%); color: #fff; }
+}
+.btn-ghost {
+  border: 2px solid rgba(#fff, .7); color: #fff; border-radius: 999px; padding: .7rem 1.7rem; font-weight: 600;
+  &:hover { background: #fff; color: $brand-black; }
+}
+.btn-outline-eco {
+  border: 2px solid $brand-orange; color: $brand-orange; border-radius: 999px; padding: .7rem 1.7rem; font-weight: 600;
+  &:hover { background: $brand-orange; color: #fff; }
+}

@@ -1,0 +1,65 @@
+@use 'sass:color';
+@use '../../../styles/variables' as *;
+
+.hero {
+  position: relative; height: calc(100vh - 72px); overflow: hidden;
+}
+.capa { position: absolute; inset: 0; }
+
+/* Capa 1 — cargador: foto de producto recortada sobre fondo blanco.
+   No se recorta (contain) y se apoya en un fondo claro de marca. */
+.capa-inicial {
+  background:
+    radial-gradient(circle at 72% 45%, rgba($brand-green, .16), transparent 55%),
+    linear-gradient(135deg, #ffffff 0%, $surface 100%);
+  .producto {
+    position: absolute; top: 50%; right: 8%; transform: translateY(-50%);
+    height: 78%; width: auto; max-width: 46%; object-fit: contain;
+    filter: drop-shadow(0 24px 40px rgba(0, 0, 0, .18));
+  }
+  @media (max-width: 767.98px) {
+    .producto { right: 50%; transform: translate(50%, -50%); top: 32%; height: 42%; max-width: 72%; }
+  }
+}
+
+/* Capa 2 — escena real del coche cargando. La descubre el scroll. */
+.capa-final {
+  .escena { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+  .shade {
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, rgba(#000, .72), rgba(#000, .3) 55%, rgba(#000, .05));
+  }
+}
+
+.texto {
+  position: absolute; left: 0; right: 0; bottom: 12%;
+  h1, h2 { font-size: clamp(1.9rem, 4.6vw, 3.4rem); max-width: 13em; }
+  .lead { max-width: 28em; }
+}
+
+/* Texto sobre la capa clara del cargador: en oscuro para que se lea. */
+.texto-inicial {
+  color: $text;
+  h1 { color: $brand-black; }
+  .lead { color: $muted; }
+  @media (max-width: 767.98px) { bottom: 8%; }
+}
+
+/* Texto sobre la foto del coche: en blanco. */
+.texto-final {
+  opacity: 0; color: #fff;
+  h2 { color: #fff; text-shadow: 0 2px 18px rgba(0, 0, 0, .45); }
+  .eyebrow { color: $brand-green; }
+}
+
+.card-eco {
+  background: #fff; border: 1px solid $border; border-radius: 1rem; padding: 1.75rem;
+  transition: transform .25s, border-color .25s, box-shadow .25s;
+  &:hover { transform: translateY(-4px); border-color: $brand-orange; box-shadow: 0 14px 30px rgba(0, 0, 0, .07); }
+  p { color: $muted; }
+  .ico { font-size: 2rem; display: block; margin-bottom: .75rem; }
+}
+.cta-band {
+  background: $dark; color: #fff;
+  .lead { color: rgba(#fff, .75); }
+}

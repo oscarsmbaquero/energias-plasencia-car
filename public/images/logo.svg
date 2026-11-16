@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 530 150" role="img" aria-label="Energías Plasencia SL">
+  <!-- Marca: cuadrado verde con rombos -->
+  <rect x="10" y="18" width="114" height="114" fill="none" stroke="#76b82a" stroke-width="5"/>
+  <g>
+    <path d="M67 32 l20 20 -20 20 -20 -20z" fill="#76b82a"/>
+    <path d="M42 57 l20 20 -20 20 -20 -20z" fill="#111111"/>
+    <path d="M92 57 l20 20 -20 20 -20 -20z" fill="#111111"/>
+    <path d="M67 82 l20 20 -20 20 -20 -20z" fill="#111111"/>
+  </g>
+  <!-- Texto. textLength fija el ancho: así nunca se recorta,
+       tenga o no el equipo la fuente Inter instalada. -->
+  <text x="146" y="101"
+        font-family="Inter, 'Segoe UI', Arial, sans-serif" font-size="88" font-weight="700"
+        fill="#ee7203" textLength="366" lengthAdjust="spacingAndGlyphs">energías</text>
+  <text x="512" y="135" text-anchor="end"
+        font-family="Inter, 'Segoe UI', Arial, sans-serif" font-size="27" font-weight="500"
+        fill="#111111" textLength="166" lengthAdjust="spacingAndGlyphs">plasencia sl</text>
+</svg>

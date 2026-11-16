@@ -1,0 +1,15 @@
+@use '../../../styles/variables' as *;
+
+.muted { color: $muted; }
+.puntos { padding-left: 1.1rem; li { margin-bottom: .5rem; &::marker { color: $brand-green; } } }
+.formulario, .ok {
+  background: $surface; border: 1px solid $border; border-radius: 1rem; padding: 2rem;
+}
+.ok { border-left: 5px solid $brand-green; }
+.form-label { font-weight: 600; font-size: .9rem; }
+.form-control, .form-select {
+  background-color: #fff; border-color: $border; color: $text;
+  &:focus { border-color: $brand-orange; box-shadow: 0 0 0 .2rem rgba($brand-orange, .18); }
+}
+.form-check-input:checked { background-color: $brand-green; border-color: $brand-green; }
+.form-check-input:focus { border-color: $brand-orange; box-shadow: 0 0 0 .2rem rgba($brand-orange, .18); }

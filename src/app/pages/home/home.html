@@ -1,0 +1,55 @@
+<section #hero class="hero">
+  <!-- Capa 1: cargador (foto de producto sobre fondo claro) -->
+  <div class="capa capa-inicial">
+    <img src="images/cargador.webp" class="producto" alt="Cargador portátil para vehículo eléctrico" fetchpriority="high">
+  </div>
+
+  <!-- Capa 2: coche cargando, se descubre con el scroll -->
+  <div class="capa capa-final">
+    <img src="images/coche-cargando.jpg" class="escena" alt="Coche eléctrico cargando en un punto de carga">
+    <div class="shade"></div>
+  </div>
+
+  <div class="container texto texto-inicial">
+    <p class="eyebrow">Plasencia · Cáceres</p>
+    <h1>Tu punto de carga,<br>listo para tu coche eléctrico</h1>
+    <p class="lead">Haz scroll y descubre cómo se carga.</p>
+  </div>
+
+  <div class="container texto texto-final">
+    <p class="eyebrow">Carga en casa o en tu empresa</p>
+    <h2>Del enchufe a la carretera</h2>
+    <div class="d-flex flex-wrap gap-3 mt-3">
+      <a routerLink="/presupuesto" class="btn btn-eco">Pedir presupuesto</a>
+      <a routerLink="/productos" class="btn btn-ghost">Ver productos</a>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="text-center mb-5">
+      <p class="eyebrow">Por qué pasarte al eléctrico</p>
+      <h2>Ventajas de la movilidad eléctrica</h2>
+    </div>
+    <div class="row g-4">
+      @for (v of ventajas; track v.titulo) {
+        <div class="col-12 col-sm-6 col-lg-3">
+          <article class="card-eco h-100">
+            <span class="ico">{{ v.icono }}</span>
+            <h3 class="h5">{{ v.titulo }}</h3>
+            <p class="mb-0">{{ v.texto }}</p>
+          </article>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="section cta-band">
+  <div class="container text-center">
+    <h2>¿Hablamos de tu instalación?</h2>
+    <p class="lead">Te preparamos un presupuesto sin compromiso.</p>
+    <a routerLink="/presupuesto" class="btn btn-eco">Pedir presupuesto</a>
+  </div>
+</section>

@@ -1,0 +1,109 @@
+@use '../styles/variables' as *;
+
+.topbar {
+  position: fixed; inset: 0 0 auto 0; z-index: 100;
+  background: rgba(#fff, .92); backdrop-filter: blur(10px);
+  border-bottom: 1px solid $border;
+  > .container { height: 72px; position: relative; }
+}
+.brand {
+  display: flex; align-items: baseline; gap: .4rem; text-decoration: none;
+  img { display: block; }
+  // "car": la sección de movilidad de Energías Plasencia
+  .brand-sub {
+    background: $brand-green; color: #fff; font-weight: 700;
+    font-size: .8rem; line-height: 1; letter-spacing: .06em; text-transform: lowercase;
+    padding: .28rem .55rem; border-radius: .35rem; align-self: center;
+  }
+}
+nav {
+  display: flex; gap: 1.5rem; align-items: center;
+  a {
+    color: $text; text-decoration: none; font-weight: 500; transition: color .2s;
+    &:hover, &.active { color: $brand-orange; }
+    &.cta {
+      background: $brand-orange; color: #fff; padding: .5rem 1.2rem; border-radius: 999px; font-weight: 600;
+      &:hover { background: darken($brand-orange, 6%); color: #fff; }
+    }
+  }
+  @media (max-width: 767.98px) {
+    display: none; position: absolute; top: 72px; left: 0; right: 0;
+    flex-direction: column; align-items: flex-start; padding: 1.25rem; background: #fff; gap: 1rem;
+    border-bottom: 1px solid $border; box-shadow: 0 12px 24px rgba(0, 0, 0, .08);
+    &.open { display: flex; }
+  }
+}
+// Botón hamburguesa animado: al abrirse, las líneas se recomponen en una flecha.
+// El <input> es el control real (accesible y enfocable); el <label> solo lo envuelve.
+.hamburger {
+  cursor: pointer;
+  display: inline-flex;
+  margin: 0;
+
+  input {
+    // Oculto a la vista pero enfocable y operable con teclado (espacio).
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  svg {
+    // El ancho explícito es necesario: un <svg> sin atributo width vale 100%
+    // por defecto, y dentro de un inline-flex eso se resuelve a 0 y desaparece.
+    width: 2.4rem;
+    height: 2.4rem;
+    display: block;
+    transition: transform 600ms cubic-bezier(.4, 0, .2, 1);
+  }
+
+  .line {
+    fill: none;
+    stroke: $brand-black;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 3;
+    transition:
+      stroke-dasharray 600ms cubic-bezier(.4, 0, .2, 1),
+      stroke-dashoffset 600ms cubic-bezier(.4, 0, .2, 1);
+  }
+
+  .line-top-bottom { stroke-dasharray: 12 63; }
+
+  input:checked + svg { transform: rotate(-45deg); }
+  input:checked + svg .line-top-bottom {
+    stroke-dasharray: 20 300;
+    stroke-dashoffset: -32.42;
+  }
+
+  input:checked + svg .line { stroke: $brand-orange; }
+
+  input:focus-visible + svg {
+    outline: 2px solid $brand-orange;
+    outline-offset: 4px;
+    border-radius: .35rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    svg, .line { transition: none; }
+  }
+}
+main { padding-top: 72px; min-height: 80vh; }
+
+.footer {
+  background: $dark; padding: 3rem 0 1.5rem; color: rgba(#fff, .7);
+  h2 { color: #fff; margin-bottom: .9rem; }
+  a { display: block; color: rgba(#fff, .7); text-decoration: none; margin-bottom: .5rem; &:hover { color: $brand-orange; } }
+  .logo-footer { background: #fff; border-radius: .5rem; padding: .4rem .6rem; }
+  .seccion-car {
+    color: #fff; font-weight: 600;
+    span {
+      background: $brand-green; color: #fff; font-size: .75rem; letter-spacing: .06em;
+      padding: .2rem .45rem; border-radius: .3rem; margin-left: .25rem;
+    }
+  }
+  .creditos {
+    border-top: 1px solid rgba(#fff, .12); padding-top: 1.25rem; margin-top: 1rem;
+    font-size: .875rem; color: rgba(#fff, .55);
+  }
+}

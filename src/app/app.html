@@ -1,0 +1,53 @@
+<header class="topbar">
+  <div class="container d-flex align-items-center justify-content-between">
+    <a routerLink="/" class="brand" (click)="cerrar()">
+      <img src="images/logo.svg" alt="Energías Plasencia SL" height="44">
+      <span class="brand-sub">car</span>
+    </a>
+    <label class="hamburger d-md-none">
+      <input
+        type="checkbox"
+        [checked]="menuAbierto()"
+        (change)="toggle()"
+        [attr.aria-label]="menuAbierto() ? 'Cerrar menú' : 'Abrir menú'"
+        [attr.aria-expanded]="menuAbierto()"
+        aria-controls="menu-principal">
+      <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+        <path
+          class="line line-top-bottom"
+          d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"></path>
+        <path class="line" d="M7 16 27 16"></path>
+      </svg>
+    </label>
+    <nav id="menu-principal" [class.open]="menuAbierto()">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="cerrar()">Inicio</a>
+      <a routerLink="/productos" routerLinkActive="active" (click)="cerrar()">Productos</a>
+      <a routerLink="/info" routerLinkActive="active" (click)="cerrar()">Info</a>
+      <a routerLink="/presupuesto" class="cta" (click)="cerrar()">Pedir presupuesto</a>
+    </nav>
+  </div>
+</header>
+
+<main><router-outlet /></main>
+
+<footer class="footer">
+  <div class="container row gy-4">
+    <div class="col-md-5">
+      <img src="images/logo.svg" alt="Energías Plasencia SL" height="54" class="mb-3 logo-footer">
+      <p class="mb-1"><strong class="seccion-car">Energías Plasencia <span>car</span></strong></p>
+      <p class="mb-0">Movilidad eléctrica e instalación de puntos de carga en Plasencia (Cáceres).</p>
+    </div>
+    <div class="col-md-3">
+      <h2 class="h6">Secciones</h2>
+      <a routerLink="/productos">Productos</a>
+      <a routerLink="/info">Info</a>
+      <a routerLink="/presupuesto">Pedir presupuesto</a>
+    </div>
+    <div class="col-md-4">
+      <h2 class="h6">Contacto</h2>
+      <p class="mb-1">Plasencia, Cáceres</p>
+      <p class="mb-0">info&#64;energiasplasencia.es</p>
+    </div>
+    <div class="col-12 creditos">© {{ anio }} Energías Plasencia SL · Todos los derechos reservados</div>
+  </div>
+</footer>

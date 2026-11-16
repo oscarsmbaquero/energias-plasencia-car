@@ -1,0 +1,18 @@
+@use '../../../styles/variables' as *;
+
+.muted { color: $muted; }
+.box {
+  background: $surface; border: 1px solid $border; border-radius: 1rem; padding: 1.75rem;
+  dt { color: $brand-green; font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; margin-top: .75rem; font-weight: 700; }
+  dd { margin: 0; }
+}
+.faq {
+  border-bottom: 1px solid $border;
+  button {
+    width: 100%; display: flex; justify-content: space-between; gap: 1rem; text-align: left;
+    background: none; border: 0; color: $text; font-weight: 600; padding: 1.1rem 0; cursor: pointer;
+    &:hover { color: $brand-orange; }
+    span { color: $brand-orange; font-size: 1.4rem; line-height: 1; }
+  }
+  p { color: $muted; padding-bottom: 1.1rem; margin: 0; }
+}
