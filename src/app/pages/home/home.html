@@ -60,10 +60,18 @@
       <h2>{{ t().home.ventajasTitulo }}</h2>
     </div>
     <div class="row g-4">
-      @for (v of t().home.ventajas; track v.titulo) {
+      @for (v of t().home.ventajas; track v.titulo; let i = $index) {
+        @let foto = fotoVentaja(i);
         <div class="col-12 col-sm-6 col-lg-3">
           <article class="card-eco h-100">
-            <span class="ico">{{ v.icono }}</span>
+            <!-- Sin texto alternativo: la foto no añade nada al título que va
+                 justo debajo. La tarjeta sin foto se queda con su icono. -->
+            <div class="foto-ficha" [class.sin-foto]="!foto">
+              @if (foto) {
+                <img [src]="'images/' + foto" alt="" loading="lazy" decoding="async">
+              }
+              <span class="ico">{{ v.icono }}</span>
+            </div>
             <h3 class="h5">{{ v.titulo }}</h3>
             <p class="mb-0">{{ v.texto }}</p>
           </article>

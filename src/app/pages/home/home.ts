@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
+import { FOTOS_VENTAJAS } from '../../data/ventajas';
 import { I18n } from '../../i18n/i18n';
 import { Aparicion } from '../../ui/aparicion';
 
@@ -34,6 +35,7 @@ export class Home implements OnDestroy {
   // con hidratación devuelve marcado que ya no está en la página (CLAUDE.md).
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private persiana?: Aparicion;
+  private ventajas?: Aparicion;
 
   /**
    * Qué trozo de la foto le toca a cada tira. Con `background-size` de
@@ -42,6 +44,11 @@ export class Home implements OnDestroy {
    */
   protected corte(i: number): string {
     return `${(i * 100) / (FRANJAS - 1)}%`;
+  }
+
+  /** La foto que le toca a cada ventaja, emparejada por posición. */
+  protected fotoVentaja(i: number): string {
+    return FOTOS_VENTAJAS[i] ?? '';
   }
 
   constructor() {
@@ -55,6 +62,11 @@ export class Home implements OnDestroy {
         repetir: true
       });
       this.persiana.arrancar();
+
+      // Las ventajas entran en cascada y sus fotos se asientan al llegar.
+      this.ventajas = new Aparicion(this.host.nativeElement, '.card-eco', { claseOculta: 'aos' });
+      this.ventajas.arrancar();
+
       this.montarHero();
 
       /* La hidratación sustituye los nodos del componente poco después de
@@ -121,5 +133,6 @@ export class Home implements OnDestroy {
     this.ctx?.revert();
     this.vigilante?.disconnect();
     this.persiana?.parar();
+    this.ventajas?.parar();
   }
 }

@@ -16,7 +16,16 @@
         @let item = texto(p.id);
         <div class="col-12 col-md-6 col-lg-4">
           <article class="producto h-100">
-            <span class="ico">{{ p.icono }}</span>
+            <!-- La foto no lleva texto alternativo porque no añade nada a lo que
+                 ya dice el título justo debajo; repetirlo solo molesta a quien
+                 usa lector de pantalla. El producto sin foto se queda con su
+                 icono sobre el fondo de marca. -->
+            <div class="foto-ficha" [class.sin-foto]="!p.foto" [class.contener]="p.encaje === 'contener'">
+              @if (p.foto) {
+                <img [src]="'images/' + p.foto" alt="" loading="lazy" decoding="async">
+              }
+              <span class="ico">{{ p.icono }}</span>
+            </div>
             <h2 class="h5">{{ item.nombre }}</h2>
             <p class="desc">{{ item.descripcion }}</p>
             <ul>

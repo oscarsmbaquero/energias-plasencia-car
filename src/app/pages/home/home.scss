@@ -86,7 +86,8 @@
   transition: transform .25s, border-color .25s, box-shadow .25s;
   &:hover { transform: translateY(-4px); border-color: $primary; box-shadow: 0 14px 30px rgba(0, 0, 0, .07); }
   p { color: $muted; }
-  .ico { font-size: 2rem; display: block; margin-bottom: .75rem; }
+  // El icono ya no es un bloque suelto: vive dentro de .foto-ficha, que le da
+  // forma de chapa. Una regla aquí con `.card-eco` delante pisaría a la global.
 }
 /* ---- Persiana de franjas -------------------------------------------------
    Dos fotos y ocho tiras verticales. Cada tira es una tarjeta de dos caras: el

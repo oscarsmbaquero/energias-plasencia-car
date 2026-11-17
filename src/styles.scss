@@ -61,6 +61,88 @@ h1, h2, h3, h4 { font-weight: 700; letter-spacing: -0.02em; }
   to { opacity: 1; transform: none; }
 }
 
+/* ---- Banda de foto de una tarjeta ----------------------------------------
+   La usan las fichas de producto y las ventajas de la portada. Va a sangre, de
+   borde a borde de la tarjeta, de ahí los márgenes negativos que compensan su
+   relleno. La altura es fija y no proporcional: así todas las fotos de una fila
+   quedan a la misma línea aunque las columnas cambien de ancho.
+
+   Las reglas de hover no nombran a la tarjeta: `:hover > .foto-ficha` vale para
+   cualquiera que la contenga, sin que esta hoja tenga que conocer sus clases. */
+.foto-ficha {
+  position: relative;
+  margin: -1.75rem -1.75rem 1.25rem;
+  height: 10.5rem;
+  overflow: hidden;
+  border-radius: 1rem 1rem 0 0;
+  background:
+    radial-gradient(circle at 70% 40%, rgba($brand-green, .18), transparent 60%),
+    linear-gradient(135deg, #ffffff 0%, $surface 100%);
+
+  img {
+    display: block;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    /* El zoom del hover. La entrada es una animación aparte, que manda mientras
+       dura y después devuelve el control a esta transición. */
+    transition: transform .5s cubic-bezier(.22, .61, .36, 1);
+  }
+
+  /* Foto de producto recortada sobre blanco: se enseña entera y el `multiply`
+     funde ese blanco con el fondo de marca, igual que en el hero, para que no
+     se vea la caja del recorte. */
+  &.contener {
+    isolation: isolate;
+    img { object-fit: contain; padding: .9rem; mix-blend-mode: multiply; }
+  }
+
+  // Chapa con el icono, montada sobre el borde de la foto.
+  .ico {
+    position: absolute;
+    left: 1.1rem; bottom: -.9rem;
+    margin: 0;
+    display: grid; place-items: center;
+    width: 2.8rem; height: 2.8rem;
+    font-size: 1.4rem; line-height: 1;
+    background: #fff;
+    border: 1px solid $border;
+    border-radius: .8rem;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, .08);
+    transition: transform .25s;
+  }
+
+  // Sin foto: el icono se queda en grande, centrado sobre el fondo de marca.
+  &.sin-foto .ico {
+    position: static;
+    width: auto; height: 100%;
+    font-size: 3rem;
+    background: none; border: 0; box-shadow: none; border-radius: 0;
+  }
+}
+
+:hover > .foto-ficha img,
+:focus-within > .foto-ficha img { transform: scale(1.07); }
+:hover > .foto-ficha .ico,
+:focus-within > .foto-ficha .ico { transform: translateY(-3px); }
+
+/* La foto se asienta al entrar la tarjeta: arranca un pelo más grande y se
+   coloca. Es animación y no transición porque la transición de la imagen ya
+   está ocupada con el zoom del hover; al acabar, sin `forwards`, el control
+   vuelve a esa transición y el hover sigue funcionando. */
+.visible > .foto-ficha img {
+  animation: asentar-foto 1.1s cubic-bezier(.22, .61, .36, 1) var(--retraso, 0s) backwards;
+}
+
+@keyframes asentar-foto {
+  from { transform: scale(1.12); }
+  to { transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .foto-ficha img, .foto-ficha .ico { transition: none; }
+  .visible > .foto-ficha img { animation: none; }
+}
+
 .eyebrow {
   text-transform: uppercase; letter-spacing: .15em; font-size: .8rem;
   color: $primary; font-weight: 700;

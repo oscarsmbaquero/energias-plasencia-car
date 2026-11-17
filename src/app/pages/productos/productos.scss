@@ -37,7 +37,9 @@
   background: #fff; border: 1px solid $border; border-radius: 1rem; padding: 1.75rem;
   transition: transform .25s, border-color .25s, box-shadow .25s;
   &:hover { transform: translateY(-4px); border-color: $brand-green; box-shadow: 0 14px 30px rgba(0,0,0,.07); }
-  .ico { font-size: 2.2rem; margin-bottom: .5rem; }
+
+  // La banda de foto (.foto-ficha) está en styles.scss, compartida con las
+  // tarjetas de ventajas de la portada.
   .desc { color: $muted; }
   ul { padding-left: 1.1rem; flex: 1; li::marker { color: $brand-green; } }
   // Apilado siempre, para que todas las tarjetas tengan el mismo pie
