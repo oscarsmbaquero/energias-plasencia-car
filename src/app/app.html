@@ -2,7 +2,6 @@
   <div class="container d-flex align-items-center justify-content-between">
     <a [routerLink]="i18n.l('/')" class="brand" (click)="cerrar()">
       <img src="images/logo.png" [alt]="t().nav.logoAlt" height="44">
-      <span class="brand-sub">car</span>
     </a>
     <label class="hamburger d-md-none">
       <input
@@ -35,10 +34,7 @@
           [attr.aria-expanded]="idiomasAbierto()"
           aria-haspopup="true"
           aria-controls="lista-idiomas">
-          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" class="globo">
-            <circle cx="12" cy="12" r="9"></circle>
-            <path d="M3 12h18M12 3c2.5 2.6 2.5 15.4 0 18M12 3c-2.5 2.6-2.5 15.4 0 18"></path>
-          </svg>
+          <app-bandera [idioma]="i18n.idioma()" />
           <span>{{ i18n.siglaDe(i18n.idioma()) }}</span>
           <span class="flecha" aria-hidden="true"></span>
         </button>
@@ -53,7 +49,7 @@
                 [class.actual]="idioma === i18n.idioma()"
                 [attr.aria-current]="idioma === i18n.idioma() ? 'true' : null"
                 (click)="cerrar()">
-                <span class="sigla">{{ i18n.siglaDe(idioma) }}</span>
+                <app-bandera [idioma]="idioma" />
                 {{ i18n.nombreDe(idioma) }}
               </a>
             </li>
@@ -76,7 +72,7 @@
    <div class="row gy-4">
     <div class="col-md-5">
       <img src="images/logo.png" [alt]="t().nav.logoAlt" height="54" class="mb-3">
-      <p class="mb-1"><strong class="seccion-car">Energías Plasencia <span>car</span></strong></p>
+      <p class="mb-1"><strong class="seccion-car">Energías Plasencia</strong></p>
       <p class="mb-0">{{ t().footer.descripcion }}</p>
     </div>
     <!-- En móvil se oculta: repite los enlaces que ya están en el menú de arriba. -->
@@ -93,7 +89,7 @@
 
       <!-- Redes sociales. Las URLs están en seo/sitio.ts: la que se deje en
            blanco no sale, sin tocar nada aquí. Los iconos van dibujados a mano
-           con el mismo trazo que el resto (el globo del selector de idioma). -->
+           con el mismo trazo que el resto de iconos de la web. -->
       @if (hayRedes) {
         <ul class="redes">
           @if (redes.facebook) {

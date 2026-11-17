@@ -6,10 +6,11 @@ import { Cookies } from './cookies/cookies';
 import { I18n } from './i18n/i18n';
 import { Idioma } from './i18n/idiomas';
 import { REDES } from './seo/sitio';
+import { Bandera } from './ui/bandera';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, AvisoCookies],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, AvisoCookies, Bandera],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
